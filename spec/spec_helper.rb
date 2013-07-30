@@ -4,6 +4,8 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'email_spec'
 require 'rspec/autorun'
+require 'simplecov'
+SimpleCov.start 'rails'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -48,4 +50,15 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  config.include Devise::TestHelpers, :type => :controller
 end
+
+OmniAuth.config.test_mode = true
+OmniAuth.config.add_mock(:mygov, {
+  :info => {
+    :email => 'joe@citizen.org',
+    :uid => '12345'
+  },
+  :uid => '12345',
+})

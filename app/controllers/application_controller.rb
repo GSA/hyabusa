@@ -4,6 +4,13 @@ class ApplicationController < ActionController::Base
   helper_method :user_signed_in?
   helper_method :correct_user?
 
+  # workaround for CanCan and strong params in Rails 4 (https://github.com/ryanb/cancan/issues/835)
+  before_filter do
+    resource = controller_name.singularize.to_sym
+    method = "#{resource}_params"
+    params[resource] &&= send(method) if respond_to?(method, true)
+  end
+
   private
     def current_user
       begin

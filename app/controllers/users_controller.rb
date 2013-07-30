@@ -6,7 +6,7 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-    def edit
+  def edit
     @user = User.find(params[:id])
   end
   
@@ -20,8 +20,12 @@ class UsersController < ApplicationController
   end
 
 
-def show
+  def show
     @user = User.find(params[:id])
   end
 
+  # workaround for CanCan and strong params in Rails 4 (https://github.com/ryanb/cancan/issues/835)
+  def user_params
+    params.require(:user).permit(:role, :email, :name)
+  end
 end
