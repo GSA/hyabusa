@@ -55,7 +55,7 @@ RSpec.configure do |config|
 end
 
 OmniAuth.config.test_mode = true
-OmniAuth.config.add_mock(:mygov, {
+OmniAuth.config.add_mock(:myusa, {
   :info => {
     :email => 'joe@citizen.org',
     :uid => '12345'
