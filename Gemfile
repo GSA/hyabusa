@@ -16,7 +16,7 @@ gem 'omniauth-google-oauth2'
 gem 'rolify'
 gem 'simple_form', '>= 3.0.0.rc'
 gem 'slim'
-gem 'omniauth-mygov', :git => 'https://github.com/GSA-OCSIT/omniauth-mygov.git' # :path => '~/code/gems/omniauth-myusa'
+gem 'omniauth-myusa', :git => 'https://github.com/GSA-OCSIT/omniauth-myusa.git' # :path => '~/code/gems/omniauth-myusa'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :rbx]

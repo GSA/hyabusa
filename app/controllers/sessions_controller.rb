@@ -4,7 +4,7 @@ class SessionsController < ApplicationController
   # before_filter :setup_myusa_access_token
 
   def new
-    redirect_to '/auth/mygov'
+    redirect_to '/auth/myusa'
   end
 
 

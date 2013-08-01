@@ -10,10 +10,10 @@ GIT
       warden (~> 1.2.1)
 
 GIT
-  remote: https://github.com/GSA-OCSIT/omniauth-mygov.git
-  revision: 1f8a5f551ac9b1ce991713066e1eb47b6f347c94
+  remote: https://github.com/GSA-OCSIT/omniauth-myusa.git
+  revision: f3a9c1fb315685e0d63c1028aca76aa11f99b4a4
   specs:
-    omniauth-mygov (0.0.2)
+    omniauth-myusa (0.0.3)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.0)
 
@@ -306,7 +306,7 @@ DEPENDENCIES
   jquery-rails
   omniauth
   omniauth-google-oauth2
-  omniauth-mygov!
+  omniauth-myusa!
   pg
   pry
   pry-nav
