@@ -1,0 +1,10 @@
+ul class="subnav"
+  - if user_signed_in?
+    - if current_user.has_role? :admin or current_user.has_role? :VIP
+      li
+        = link_to 'Admin', users_path
+    li
+      = link_to 'Logout', signout_path
+  - else
+    li
+      = link_to 'Login', signin_path
