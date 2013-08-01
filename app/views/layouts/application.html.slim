@@ -5,21 +5,54 @@ html
       title= content_for?(:title) ? yield(:title) : "BusinessUSA"
       meta content=(content_for?(:description) ? yield(:description) : "BusinessUSA") name="description" 
         = stylesheet_link_tag "application", :media => "all"
+        = stylesheet_link_tag "http://fonts.googleapis.com/css?family=Bitter:400,700"
         = javascript_include_tag "application"
         = csrf_meta_tags
         = yield(:head)
-  body class=("#{controller_name} #{action_name}") 
-    .navbar.navbar-fixed-top
-      nav.navbar-inner
+  body class=("#{controller_name} #{action_name}")
+    #beta
+    .navbar.navbar-static-top
+      nav#header.navbar-inner
         .container
           = render 'layouts/navigation'
     #main role="main" 
       .container
+        .row
+          .span12
+            = render 'layouts/messages'
         .content
           .row
             .span12
-              = render 'layouts/messages'
               = yield
-          footer
       /! ! end of .container
     /! ! end of #main
+    footer
+      .row
+        .container
+          .span12
+            ul.footer-nav
+              li
+                = link_to "Home", root_url
+              li
+                = link_to "About Us", "http://business.usa.gov/about-us"
+              li
+                = link_to "USA.gov", "http://www.usa.gov"
+              li
+                = link_to "Privacy and Security", "http://business.usa.gov/privacy-and-security"
+              li
+                = link_to "API", "http://http://business.usa.gov/apis"
+              li
+                = link_to "Link to Us", "http://business.usa.gov/link-to-us"
+              li
+                = link_to "Blogs", "http://business.usa.gov/blog"
+              li
+                = link_to "Share", "http://www.addthis.com/bookmark.php"
+              li
+                = link_to "Site Map", "http://business.usa.gov/sitemap"
+      .row
+        .container
+          .span6.center
+            .disclaimer
+              p
+                = image_tag('usflag.png')
+                | My.Business.USA.gov might one day be an official website of the U.S. Government.

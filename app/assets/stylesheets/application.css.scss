@@ -23,3 +23,194 @@
   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
   box-shadow: 0 1px 2px rgba(0,0,0,.15);
 }
+
+body {
+	color: #3e3e3e;
+	font: normal 14px 'Myriad Pro', Arial, Helvetica, sans-serif;
+}
+#header {
+	background: #ebebeb;
+	box-shadow: none;
+	border: 0 none;
+	padding: 20px 0;
+	margin: 0 0 20px 0;
+	.branding {
+		display: block;
+		position: relative;
+		.say-my {
+			position: absolute;
+			font-size: 2.4em;
+			font-family: 'Bitter', Times, serif;
+			color: #4D4D4D;
+			top: 17px;
+		}
+	}
+	.brand {
+		background: image-url('my_busa.png');
+		width: 244px;
+		height: 33px;
+		text-indent: -9999px;
+		padding: 0;
+		margin: 40px 20px 0 0;
+		float: left;
+	}
+	.slogan {
+		font: normal 12px 'Bitter', Times, serif;
+		padding-top: 4px;
+		text-indent: 85px;
+		float: left;
+		a {
+			color: #4D4D4D;
+			&:hover {
+				text-decoration: none;
+				text-shadow: none;
+			}
+		}
+	}
+	.nav {
+		float: right;
+		clear: right;
+		font-family: 'Bitter', Times, serif;
+		margin: 0.8em 0 0.8em 0;
+		font-size: 15px;
+		li {
+			margin: 0 5px;
+		}
+		a {
+			color: #4d4d4d;
+			text-shadow: none;
+			padding: 0.9em 1.2em;
+			&:hover {
+				background: #15567B;
+				color: #FFFFFF;
+			}
+		}
+	}
+	.subnav {
+		float: right;
+		font-family: 'Bitter', Times, serif;
+		margin: 0.5em 0;
+		list-style: none;
+		font-size: 13px;
+		li {
+			margin: 0 5px;
+			float: left;
+		}
+		a {
+			color: #6b6b6b;
+			text-shadow: none;
+			padding: 0.6em 1.2em;
+			text-decoration: none;
+			&:hover {
+				background: #e23f29;
+				color: #FFFFFF;
+			}
+		}
+	}
+}
+
+#beta {
+	position: fixed;
+	right: 0;
+	top: 0;
+	background: image-url('beta.png');
+	width: 128px;
+	height: 128px;
+	z-index: 10000;
+}
+
+#main {
+	padding: 10px;
+}
+
+.hidden-offscreen {
+	position: absolute;
+	left: -10000px;
+	top: auto;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+
+.share-links {
+	float: right;
+	ul li {
+		display: block;
+		list-style: none;
+		list-style-type: none;
+		margin: 0;
+		padding: 0 0 0 20px;
+		float: left;
+		width: 30px;
+		height: 30px;
+		a {
+			background-image: image-url('sliconsSprite.png');
+			background-repeat: no-repeat;
+			display: block;
+			width: 30px;
+			height: 30px;
+			float: left;
+		}
+		&#twitter a {
+			background-position: 0 1px;
+			&:hover {
+				background-position: 0 -70px;
+			}
+		}
+		&#linkedIn a {
+			background-position: 0 -142px;
+			&:hover {
+				background-position: 0 -215px;
+			}
+		}
+	}
+}
+
+footer {
+	background: #ebebeb;
+	padding: 20px 0;
+	margin-top: 15px;
+	.footer-nav {
+		list-style: none;
+		margin: 0 auto;
+		margin-bottom: 1em;
+		padding: 0;
+		margin: 1em auto;
+		position: relative;
+		text-align: center;
+		font: normal 12px 'Bitter', Times, serif;
+		li {
+			margin: 0 30px 15px 5px;
+			display: inline-block;
+			zoom: 1;
+			float: none;
+			a {
+				border: 0;
+				color: #1a6894;
+				padding: 8px;
+				text-align: center;
+				text-decoration: none;
+				display: block;
+				position: relative;
+			}
+		}
+	}
+	.disclaimer {
+		font: normal 11px 'Bitter', Times, serif;
+		color: #444;
+		padding-top: 20px;
+		background: transparent image-url('br-dots.png') repeat-x center top;
+		text-align: center;
+		img {
+			padding-right: 15px;
+		}
+		p {
+			margin-bottom: 20px;
+		}
+	}
+}
+
+.center {
+  margin: 0 auto !important;
+  float: none !important;
+}

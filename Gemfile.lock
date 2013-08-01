@@ -173,6 +173,7 @@ GEM
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
     orm_adapter (0.4.0)
+    pg (0.16.0)
     polyglot (0.3.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -306,6 +307,7 @@ DEPENDENCIES
   omniauth
   omniauth-google-oauth2
   omniauth-mygov!
+  pg
   pry
   pry-nav
   quiet_assets

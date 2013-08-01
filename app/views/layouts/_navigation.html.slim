@@ -1,13 +1,19 @@
-= link_to "BusinessUSA", root_path, :class => 'brand'
-ul class="nav"
-  - if user_signed_in?
-    li
-      = link_to 'Logout', signout_path
-  - else
-    li
-      = link_to 'Login', signin_path
+.row
+  .span4
+    .branding.clearfix
+      - if user_signed_in?
+        hgroup.say-my
+          | My
+      = link_to '<span class="hidden-offscreen">BusinessUSA</span>', root_path, :class => 'brand'
+      hgroup.slogan
+        = link_to "Discover. Connect. Grow.", root_path
+  .span8
+    .share-links
+      ul
+        li#twitter
+          a href="https://twitter.com/bizusa" target="_blank"
+        li#linkedIn
+          a href="http://www.linkedin.com/groups/BusinessUSA-2521449" target="_blank"
+    = render "layouts/my_nav"
+    = render "layouts/businessusa_nav"
 
-  - if user_signed_in?
-    - if current_user.has_role? :admin
-      li
-        = link_to 'Admin', users_path
