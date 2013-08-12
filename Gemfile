@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 gem 'rails', '4.0.0'
-gem 'sqlite3'
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
@@ -17,7 +16,7 @@ gem 'omniauth-google-oauth2'
 gem 'rolify'
 gem 'simple_form', '>= 3.0.0.rc'
 gem 'slim'
-gem 'omniauth-mygov', :git => 'https://github.com/GSA-OCSIT/omniauth-mygov.git' # :path => '~/code/gems/omniauth-myusa'
+gem 'omniauth-myusa', :git => 'https://github.com/GSA-OCSIT/omniauth-myusa.git' # :path => '~/code/gems/omniauth-myusa'
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :rbx]
@@ -40,10 +39,12 @@ group :development, :test do
   gem 'pry'
   gem 'pry-nav'
   gem 'zeus'
+  gem 'sqlite3'
 end
 group :production do
   gem 'unicorn'
   gem 'pg'
+  gem 'rails_12factor'
 end
 group :test do
   gem 'capybara'

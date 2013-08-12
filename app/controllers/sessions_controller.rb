@@ -4,21 +4,21 @@ class SessionsController < ApplicationController
   # before_filter :setup_myusa_access_token
 
   def new
-    redirect_to '/auth/mygov'
+    redirect_to '/auth/myusa'
   end
 
 
   def create
     auth = request.env["omniauth.auth"]
     user = User.where(:provider => auth['provider'], 
-                      :uid => auth['uid'].to_s).first || User.find_or_create_with_omniauth(auth)
+                      :uid => auth['uid'].to_s).first || User.create_with_omniauth(auth)
     # Reset the session after successful login, per
     # 2.8 Session Fixation – Countermeasures:
     # http://guides.rubyonrails.org/security.html#session-fixation-countermeasures
     reset_session
     session[:user_id] = user.id
     session[:token] = auth.credentials.token
-    user.add_role :admin if User.count == 1 # make the first user an admin
+    user.add_role :agent if User.count == 1 # make the first user an admin
     if user.email.blank?
       redirect_to edit_user_path(user), :alert => "Please enter your email address."
     else
