@@ -39,6 +39,7 @@ group :development, :test do
   gem 'thin'
   gem 'pry'
   gem 'pry-nav'
+  gem 'zeus'
 end
 group :production do
   gem 'unicorn'

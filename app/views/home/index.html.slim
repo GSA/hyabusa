@@ -1,4 +1,7 @@
 h3 Home
+
+p #{link_to "Find Opportunities", :find_opportunities}
+
 - @users.each do |user|
   p
     | User: #{link_to user.name, user}
