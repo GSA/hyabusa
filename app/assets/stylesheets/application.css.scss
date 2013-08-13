@@ -214,3 +214,26 @@ footer {
   margin: 0 auto !important;
   float: none !important;
 }
+
+h1, h2, h3, h4 {
+	font-family: 'Bitter', Times, serif !important;
+	color: #444 !important;
+}
+
+.home-tiles {
+	list-style: none;
+	margin: 0;
+	li {
+		list-style: none;
+		float: left;
+		padding: 3px;
+		margin: 0;
+		img {
+			width: 188px;
+			height: 174px;
+			&:hover {
+				opacity: 0.9;
+			}
+		}
+	}
+}

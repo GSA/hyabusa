@@ -88,4 +88,7 @@ Mybusa::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  # google analytics
+  GA.tracker = "UA-43089984-1"
 end
