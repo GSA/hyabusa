@@ -6,6 +6,10 @@
 			ul.home-tiles
 				li
 					= link_to image_tag('find-opportunities.gif'), :find_opportunities
+				li
+					= link_to image_tag('start-a-business.gif'), 'http://business.usa.gov/start-a-business'
+				li
+					= link_to image_tag('invest-in-the-usa.gif'), 'http://business.usa.gov/select-usa'
 			br clear="both"
 			hr
 .row
@@ -13,8 +17,9 @@
 		h2
 			| Explore BusinessUSA
 		ul.home-tiles
-			li
-				= link_to image_tag('start-a-business.gif'), 'http://business.usa.gov/start-a-business'
+			- if !user_signed_in?
+				li
+					= link_to image_tag('start-a-business.gif'), 'http://business.usa.gov/start-a-business'
 			li
 				= link_to image_tag('access-financing.gif'), 'http://business.usa.gov/access-financing'
 			li
@@ -28,12 +33,12 @@
 			- if !user_signed_in?
 				li
 					= link_to image_tag('find-opportunities.gif'), 'http://business.usa.gov/find-opportunities'
+				li
+					= link_to image_tag('invest-in-the-usa.gif'), 'http://business.usa.gov/select-usa'
 			li
 				= link_to image_tag('grow-your-business.gif'), 'http://business.usa.gov/grow-your-business'
 			li
 				= link_to image_tag('help-with-hiring-employes.gif'), 'http://business.usa.gov/jobcenter-wizard'
-			li
-				= link_to image_tag('invest-in-the-usa.gif'), 'http://business.usa.gov/select-usa'
 			li
 				= link_to image_tag('learn-about-new-healthcare-changes.gif'), 'http://business.usa.gov/healthcare'
 			li
