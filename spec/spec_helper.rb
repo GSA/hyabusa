@@ -55,6 +55,11 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
 end
 
+Capybara.configure do |config|
+  config.app_host    = 'http://localhost'
+  config.server_port = 3002
+end
+
 OmniAuth.config.test_mode = true
 OmniAuth.config.add_mock(:myusa, {
   :info => {
