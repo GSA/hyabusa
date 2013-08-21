@@ -9,6 +9,6 @@
 # See http://railsapps.github.io/rails-environment-variables.html
 puts 'ROLES'
 YAML.load(ENV['ROLES']).each do |role|
-  Role.find_or_create_by_name(role, :without_protection => true)
+  Role.find_or_create_by_name(role)
   puts 'role: ' << role
 end
