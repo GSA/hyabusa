@@ -34,6 +34,6 @@ module Mybusa
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    ROLES: [admin, user, VIP]
+    ROLES: %w{ admin user VIP }
   end
 end
