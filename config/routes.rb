@@ -1,4 +1,5 @@
 Mybusa::Application.routes.draw do
+  ActiveAdmin.routes(self)
   root :to => "home#index"
   resources :users, :only => [:index, :show, :edit, :update ]
 

@@ -20,6 +20,12 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def current_admin_user
+      if current_user && @current_user.has_role?(:admin)
+        current_user
+      end
+    end
+
     def user_signed_in?
       return true if current_user
     end
@@ -37,6 +43,15 @@ class ApplicationController < ActionController::Base
       end
     end
 
+    def authenticate_admin_user!
+      if current_user
+        if !current_user.has_role?(:admin)
+          redirect_to root_url, :alert => 'You are not authorized to access this page.'
+        end
+      else
+        redirect_to root_url, :alert => 'You need to sign in for access to this page.'
+      end
+    end
 
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to root_path, :alert => exception.message
