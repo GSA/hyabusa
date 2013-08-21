@@ -8,7 +8,14 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'bootstrap-sass'
-gem 'devise', github: 'plataformatec/devise', branch: 'rails4'
+
+gem 'devise'
+gem 'responders',          github: 'plataformatec/responders'
+gem 'inherited_resources', github: 'josevalim/inherited_resources'
+gem 'ransack'
+gem 'activeadmin',         github: 'gregbell/active_admin',         branch: 'rails4'
+gem 'formtastic',          github: 'justinfrench/formtastic'
+
 gem 'cancan'
 gem 'figaro'
 gem 'omniauth'
@@ -19,6 +26,7 @@ gem 'slim'
 gem 'omniauth-myusa', :git => 'https://github.com/GSA-OCSIT/omniauth-myusa.git' # :path => '~/code/gems/omniauth-myusa'
 gem 'google-analytics-rails'
 gem 'httparty'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_19, :rbx]

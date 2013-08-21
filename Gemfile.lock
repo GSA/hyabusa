@@ -1,13 +1,43 @@
 GIT
-  remote: git://github.com/plataformatec/devise.git
-  revision: 6b5988d756d780903bf8c9ccb3e2b3b724ccebe8
+  remote: git://github.com/gregbell/active_admin.git
+  revision: 72a9c30cef47b3f38c38039de021aaa3194c188b
   branch: rails4
   specs:
-    devise (2.2.4)
-      bcrypt-ruby (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
-      warden (~> 1.2.1)
+    activeadmin (0.6.0)
+      arbre (>= 1.0.1)
+      bourbon (>= 1.0.0)
+      coffee-rails (>= 3.2.0)
+      devise (>= 3.0.2)
+      formtastic (>= 2.3.0.rc2)
+      inherited_resources (>= 1.4.1)
+      jquery-rails (>= 3.0.0)
+      jquery-ui-rails (>= 4.0.0)
+      kaminari (>= 0.13.0)
+      rails (>= 3.2.0)
+      ransack (>= 1.0.0)
+      sass-rails (>= 3.2.0)
+
+GIT
+  remote: git://github.com/josevalim/inherited_resources.git
+  revision: fdc9de6ca213ab8f3b97f37e5d071363198e018a
+  specs:
+    inherited_resources (1.4.1)
+      has_scope (~> 0.6.0.rc)
+      responders (~> 1.0.0.rc)
+
+GIT
+  remote: git://github.com/justinfrench/formtastic.git
+  revision: cd6cb88f28ea7444267802ced8e5ec0f5cfd0f90
+  specs:
+    formtastic (2.3.0.rc2)
+      actionpack (>= 3.0)
+
+GIT
+  remote: git://github.com/plataformatec/responders.git
+  revision: 6b57da9efb85c79157434a85c1bc34b2b4231aaa
+  specs:
+    responders (1.0.0.rc)
+      railties (>= 3.2, < 5)
 
 GIT
   remote: https://github.com/GSA-OCSIT/omniauth-myusa.git
@@ -45,6 +75,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
+    arbre (1.0.1)
+      activesupport (>= 3.0.0)
     arel (4.0.0)
     atomic (1.1.10)
     bcrypt-ruby (3.1.1)
@@ -55,6 +87,9 @@ GEM
       debug_inspector (>= 0.0.1)
     bootstrap-sass (2.3.2.1)
       sass (~> 3.2)
+    bourbon (3.1.8)
+      sass (>= 3.2.0)
+      thor
     builder (3.1.4)
     cancan (1.6.10)
     capybara (2.1.0)
@@ -74,6 +109,11 @@ GEM
     daemons (1.1.9)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
+    devise (3.0.3)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      warden (~> 1.2.3)
     diff-lcs (1.2.4)
     email_spec (1.5.0)
       launchy (~> 2.1)
@@ -120,6 +160,9 @@ GEM
       haml (>= 3.0)
       nokogiri
       ruby_parser
+    has_scope (0.6.0.rc)
+      actionpack (>= 3.2, < 5)
+      activesupport (>= 3.2, < 5)
     hashie (2.0.5)
     hike (1.2.3)
     hpricot (0.8.6)
@@ -140,8 +183,14 @@ GEM
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquery-ui-rails (4.0.4)
+      jquery-rails
+      railties (>= 3.1.0)
     jwt (0.1.8)
       multi_json (>= 1.5)
+    kaminari (0.14.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     kgio (2.8.0)
     launchy (2.3.0)
       addressable (~> 2.3)
@@ -179,6 +228,8 @@ GEM
       omniauth (~> 1.0)
     orm_adapter (0.4.0)
     pg (0.16.0)
+    polyamorous (0.6.3)
+      activerecord (>= 3.0)
     polyglot (0.3.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
@@ -211,6 +262,10 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.11.0)
     rake (10.1.0)
+    ransack (1.0.0)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      polyamorous (~> 0.6.0)
     rb-fchange (0.0.6)
       ffi
     rb-fsevent (0.9.3)
@@ -296,6 +351,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activeadmin!
   better_errors
   binding_of_caller
   bootstrap-sass
@@ -303,10 +359,11 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.0.0)
   database_cleaner
-  devise!
+  devise
   email_spec
   factory_girl_rails
   figaro
+  formtastic!
   google-analytics-rails
   guard-bundler
   guard-rails
@@ -316,6 +373,7 @@ DEPENDENCIES
   html2haml
   httparty
   hub
+  inherited_resources!
   jbuilder (~> 1.2)
   jquery-rails
   omniauth
@@ -327,9 +385,11 @@ DEPENDENCIES
   quiet_assets
   rails (= 4.0.0)
   rails_12factor
+  ransack
   rb-fchange
   rb-fsevent
   rb-inotify
+  responders!
   rolify
   rspec-rails
   sass-rails (~> 4.0.0)
