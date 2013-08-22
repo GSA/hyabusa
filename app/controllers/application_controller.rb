@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     end
 
     def current_admin_user
-      if current_user && @current_user.has_role?(:admin)
+      if current_user && (@current_user.has_role?(:super_admin) || @current_user.has_role?(:agency_admin))
         current_user
       end
     end
