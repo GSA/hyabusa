@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
 
     def authenticate_admin_user!
       if current_user
-        if !current_user.has_role?(:admin)
+        if ! [:super_admin, :agency_admin].any? {|role| current_user.has_role?(role)}
           redirect_to root_url, :alert => 'You are not authorized to access this page.'
         end
       else
