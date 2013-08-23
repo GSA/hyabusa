@@ -51,7 +51,7 @@ ActiveAdmin.register User do
       # update roles to match checkboxes
       role_ids = params[:user][:role_ids]
       user.roles.clear()
-      user.roles << role_ids.filter{|id| ! id.empty? }.map{|id| Role.find(id)}
+      user.roles << role_ids.select{|id| !id.empty? }.map{|id| Role.find(id)}
 
       super
     end
