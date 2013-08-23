@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
     end
 
     def current_admin_user
-      if current_user && (@current_user.has_role?(:super_admin) || @current_user.has_role?(:agency_admin))
+      if current_user && [:super_admin, :agency_admin].any? {|r| @current_user.has_role?(r)}
         current_user
       end
     end
@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
 
     def authenticate_admin_user!
       if current_user
-        if ! [:super_admin, :agency_admin].any? {|role| current_user.has_role?(role)}
+        if !current_admin_user
           redirect_to root_url, :alert => 'You are not authorized to access this page.'
         end
       else
