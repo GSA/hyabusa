@@ -19,3 +19,6 @@ MYUSA_OAUTH_PROVIDER_SECRET: bar
 MYUSA_HOME: http://my.usa.gov
 
 ROLES: [admin, user, VIP]
+
+
+MODUS_OPERANDI_HOME: http://mo.tynsax.com
