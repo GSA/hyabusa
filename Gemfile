@@ -14,7 +14,10 @@ gem 'responders',          github: 'plataformatec/responders'
 gem 'inherited_resources', github: 'josevalim/inherited_resources'
 gem 'ransack'
 gem 'activeadmin',         github: 'gregbell/active_admin',         branch: 'rails4'
-gem 'formtastic',          github: 'justinfrench/formtastic'
+gem 'country_select'
+gem 'countries'
+
+gem 'show_for'
 
 gem 'cancan'
 gem 'figaro'
@@ -26,6 +29,8 @@ gem 'slim'
 gem 'omniauth-myusa', :git => 'https://github.com/GSA-OCSIT/omniauth-myusa.git' # :path => '~/code/gems/omniauth-myusa'
 gem 'google-analytics-rails'
 gem 'httparty'
+gem 'twitter-typeahead-rails'
+gem 'gon'
 
 group :development do
   gem 'better_errors'
@@ -43,7 +48,7 @@ group :development do
   gem 'rb-inotify', :require=>false
 end
 group :development, :test do
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', :require => false
   gem 'rspec-rails'
   gem 'thin'
   gem 'pry'

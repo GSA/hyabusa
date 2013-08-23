@@ -1,0 +1,670 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
+-- Name: hstore; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS hstore WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION hstore; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION hstore IS 'data type for storing sets of (key, value) pairs';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: active_admin_comments; Type: TABLE; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE TABLE active_admin_comments (
+    id integer NOT NULL,
+    namespace character varying(255),
+    body text,
+    resource_id character varying(255) NOT NULL,
+    resource_type character varying(255) NOT NULL,
+    author_id integer,
+    author_type character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.active_admin_comments OWNER TO "AlisonRowland";
+
+--
+-- Name: active_admin_comments_id_seq; Type: SEQUENCE; Schema: public; Owner: AlisonRowland
+--
+
+CREATE SEQUENCE active_admin_comments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.active_admin_comments_id_seq OWNER TO "AlisonRowland";
+
+--
+-- Name: active_admin_comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: AlisonRowland
+--
+
+ALTER SEQUENCE active_admin_comments_id_seq OWNED BY active_admin_comments.id;
+
+
+--
+-- Name: profile_fields; Type: TABLE; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE TABLE profile_fields (
+    id integer NOT NULL,
+    name character varying(255),
+    field_type character varying(255),
+    required boolean,
+    profile_section_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    label character varying(255),
+    description text
+);
+
+
+ALTER TABLE public.profile_fields OWNER TO "AlisonRowland";
+
+--
+-- Name: profile_fields_id_seq; Type: SEQUENCE; Schema: public; Owner: AlisonRowland
+--
+
+CREATE SEQUENCE profile_fields_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.profile_fields_id_seq OWNER TO "AlisonRowland";
+
+--
+-- Name: profile_fields_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: AlisonRowland
+--
+
+ALTER SEQUENCE profile_fields_id_seq OWNED BY profile_fields.id;
+
+
+--
+-- Name: profile_section_authorizations; Type: TABLE; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE TABLE profile_section_authorizations (
+    id integer NOT NULL,
+    profile_section_id integer,
+    is_admin_approved boolean,
+    is_pra_pending boolean,
+    is_pra_approved boolean,
+    omb_control_no character varying(255),
+    pra_approved_on date,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    pra_applies boolean DEFAULT true
+);
+
+
+ALTER TABLE public.profile_section_authorizations OWNER TO "AlisonRowland";
+
+--
+-- Name: profile_section_authorizations_id_seq; Type: SEQUENCE; Schema: public; Owner: AlisonRowland
+--
+
+CREATE SEQUENCE profile_section_authorizations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.profile_section_authorizations_id_seq OWNER TO "AlisonRowland";
+
+--
+-- Name: profile_section_authorizations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: AlisonRowland
+--
+
+ALTER SEQUENCE profile_section_authorizations_id_seq OWNED BY profile_section_authorizations.id;
+
+
+--
+-- Name: profile_sections; Type: TABLE; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE TABLE profile_sections (
+    id integer NOT NULL,
+    name character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.profile_sections OWNER TO "AlisonRowland";
+
+--
+-- Name: profile_sections_id_seq; Type: SEQUENCE; Schema: public; Owner: AlisonRowland
+--
+
+CREATE SEQUENCE profile_sections_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.profile_sections_id_seq OWNER TO "AlisonRowland";
+
+--
+-- Name: profile_sections_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: AlisonRowland
+--
+
+ALTER SEQUENCE profile_sections_id_seq OWNED BY profile_sections.id;
+
+
+--
+-- Name: profiles; Type: TABLE; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE TABLE profiles (
+    id integer NOT NULL,
+    user_id integer,
+    profile_section_id integer,
+    properties character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.profiles OWNER TO "AlisonRowland";
+
+--
+-- Name: profiles_id_seq; Type: SEQUENCE; Schema: public; Owner: AlisonRowland
+--
+
+CREATE SEQUENCE profiles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.profiles_id_seq OWNER TO "AlisonRowland";
+
+--
+-- Name: profiles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: AlisonRowland
+--
+
+ALTER SEQUENCE profiles_id_seq OWNED BY profiles.id;
+
+
+--
+-- Name: roles; Type: TABLE; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE TABLE roles (
+    id integer NOT NULL,
+    name character varying(255),
+    resource_id integer,
+    resource_type character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone
+);
+
+
+ALTER TABLE public.roles OWNER TO "AlisonRowland";
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE; Schema: public; Owner: AlisonRowland
+--
+
+CREATE SEQUENCE roles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.roles_id_seq OWNER TO "AlisonRowland";
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: AlisonRowland
+--
+
+ALTER SEQUENCE roles_id_seq OWNED BY roles.id;
+
+
+--
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE TABLE schema_migrations (
+    version character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.schema_migrations OWNER TO "AlisonRowland";
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE TABLE users (
+    id integer NOT NULL,
+    name character varying(255),
+    email character varying(255),
+    provider character varying(255),
+    uid character varying(255),
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    agency character varying(255)
+);
+
+
+ALTER TABLE public.users OWNER TO "AlisonRowland";
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: AlisonRowland
+--
+
+CREATE SEQUENCE users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO "AlisonRowland";
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: AlisonRowland
+--
+
+ALTER SEQUENCE users_id_seq OWNED BY users.id;
+
+
+--
+-- Name: users_roles; Type: TABLE; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE TABLE users_roles (
+    user_id integer,
+    role_id integer
+);
+
+
+ALTER TABLE public.users_roles OWNER TO "AlisonRowland";
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: AlisonRowland
+--
+
+ALTER TABLE ONLY active_admin_comments ALTER COLUMN id SET DEFAULT nextval('active_admin_comments_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: AlisonRowland
+--
+
+ALTER TABLE ONLY profile_fields ALTER COLUMN id SET DEFAULT nextval('profile_fields_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: AlisonRowland
+--
+
+ALTER TABLE ONLY profile_section_authorizations ALTER COLUMN id SET DEFAULT nextval('profile_section_authorizations_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: AlisonRowland
+--
+
+ALTER TABLE ONLY profile_sections ALTER COLUMN id SET DEFAULT nextval('profile_sections_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: AlisonRowland
+--
+
+ALTER TABLE ONLY profiles ALTER COLUMN id SET DEFAULT nextval('profiles_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: AlisonRowland
+--
+
+ALTER TABLE ONLY roles ALTER COLUMN id SET DEFAULT nextval('roles_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: AlisonRowland
+--
+
+ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+
+
+--
+-- Data for Name: active_admin_comments; Type: TABLE DATA; Schema: public; Owner: AlisonRowland
+--
+
+COPY active_admin_comments (id, namespace, body, resource_id, resource_type, author_id, author_type, created_at, updated_at) FROM stdin;
+\.
+
+
+--
+-- Name: active_admin_comments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: AlisonRowland
+--
+
+SELECT pg_catalog.setval('active_admin_comments_id_seq', 1, false);
+
+
+--
+-- Data for Name: profile_fields; Type: TABLE DATA; Schema: public; Owner: AlisonRowland
+--
+
+COPY profile_fields (id, name, field_type, required, profile_section_id, created_at, updated_at, label, description) FROM stdin;
+15	company_name	text_field	t	1	2013-09-09 17:43:00.734449	2013-09-11 02:20:42.732531	Company Name	The legal business entity name.
+16	address1	text_field	f	1	2013-09-09 17:43:50.148346	2013-09-11 02:20:42.737027	Address 1	First line of street address.
+17	address2	text_field	f	1	2013-09-09 17:44:32.558248	2013-09-11 02:20:42.739244	Address 2	Second line of street address, Apt., Suite, etc.
+18	city	text_field	f	1	2013-09-09 17:44:32.559788	2013-09-11 02:20:42.740791	City	City name.
+19	state	text_field	f	1	2013-09-09 17:44:32.561094	2013-09-11 02:20:42.742667	State	Two-digit state code.
+20	zip_code	text_field	f	1	2013-09-09 17:44:32.562418	2013-09-11 02:20:42.744119	Zip Code	Zip code.
+\.
+
+
+--
+-- Name: profile_fields_id_seq; Type: SEQUENCE SET; Schema: public; Owner: AlisonRowland
+--
+
+SELECT pg_catalog.setval('profile_fields_id_seq', 20, true);
+
+
+--
+-- Data for Name: profile_section_authorizations; Type: TABLE DATA; Schema: public; Owner: AlisonRowland
+--
+
+COPY profile_section_authorizations (id, profile_section_id, is_admin_approved, is_pra_pending, is_pra_approved, omb_control_no, pra_approved_on, created_at, updated_at, pra_applies) FROM stdin;
+1	1	t	f	t		\N	2013-09-16 22:49:31.191445	2013-09-17 16:11:28.767941	t
+\.
+
+
+--
+-- Name: profile_section_authorizations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: AlisonRowland
+--
+
+SELECT pg_catalog.setval('profile_section_authorizations_id_seq', 1, true);
+
+
+--
+-- Data for Name: profile_sections; Type: TABLE DATA; Schema: public; Owner: AlisonRowland
+--
+
+COPY profile_sections (id, name, created_at, updated_at) FROM stdin;
+1	Core	2013-09-06 21:14:19.237293	2013-09-06 21:14:19.237293
+\.
+
+
+--
+-- Name: profile_sections_id_seq; Type: SEQUENCE SET; Schema: public; Owner: AlisonRowland
+--
+
+SELECT pg_catalog.setval('profile_sections_id_seq', 1, true);
+
+
+--
+-- Data for Name: profiles; Type: TABLE DATA; Schema: public; Owner: AlisonRowland
+--
+
+COPY profiles (id, user_id, profile_section_id, properties, created_at, updated_at) FROM stdin;
+23	1	1	---\ncompany_name: ACME Widgets\naddress1: 123 House St.\naddress2: ''\ncity: Scranton\nstate: PA\nzip_code: '33333'\n	2013-09-18 14:01:37.365569	2013-09-18 14:11:26.172969
+\.
+
+
+--
+-- Name: profiles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: AlisonRowland
+--
+
+SELECT pg_catalog.setval('profiles_id_seq', 23, true);
+
+
+--
+-- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: AlisonRowland
+--
+
+COPY roles (id, name, resource_id, resource_type, created_at, updated_at) FROM stdin;
+1	super_admin	\N	\N	2013-09-06 20:28:35.61884	2013-09-06 20:28:35.61884
+2	agency_admin	\N	\N	2013-09-06 20:28:35.635884	2013-09-06 20:28:35.635884
+3	agency_user	\N	\N	2013-09-06 20:28:35.641453	2013-09-06 20:28:35.641453
+4	user	\N	\N	2013-09-06 20:28:35.647741	2013-09-06 20:28:35.647741
+5	admin	\N	\N	2013-09-06 21:13:58.891699	2013-09-06 21:13:58.891699
+6	agency	\N	\N	2013-09-06 21:13:58.936455	2013-09-06 21:13:58.936455
+\.
+
+
+--
+-- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: AlisonRowland
+--
+
+SELECT pg_catalog.setval('roles_id_seq', 6, true);
+
+
+--
+-- Data for Name: schema_migrations; Type: TABLE DATA; Schema: public; Owner: AlisonRowland
+--
+
+COPY schema_migrations (version) FROM stdin;
+20130905204605
+20130724165840
+20130724165903
+20130821154052
+20130906185752
+20130906185854
+20130906185630
+20130911020300
+20130911192735
+20130916155656
+20130916200040
+20130917151229
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: AlisonRowland
+--
+
+COPY users (id, name, email, provider, uid, created_at, updated_at, agency) FROM stdin;
+1	alison.rowland@gsa.gov	alison.rowland@gsa.gov	myusa	b31753f2-4775-4675-b874-35d4c635d367	2013-09-06 21:13:58.858579	2013-09-12 02:16:51.215176	Small Business Administration (SBA)
+\.
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: AlisonRowland
+--
+
+SELECT pg_catalog.setval('users_id_seq', 1, true);
+
+
+--
+-- Data for Name: users_roles; Type: TABLE DATA; Schema: public; Owner: AlisonRowland
+--
+
+COPY users_roles (user_id, role_id) FROM stdin;
+1	1
+1	5
+1	6
+\.
+
+
+--
+-- Name: active_admin_comments_pkey; Type: CONSTRAINT; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+ALTER TABLE ONLY active_admin_comments
+    ADD CONSTRAINT active_admin_comments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: profile_fields_pkey; Type: CONSTRAINT; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+ALTER TABLE ONLY profile_fields
+    ADD CONSTRAINT profile_fields_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: profile_section_authorizations_pkey; Type: CONSTRAINT; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+ALTER TABLE ONLY profile_section_authorizations
+    ADD CONSTRAINT profile_section_authorizations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: profile_sections_pkey; Type: CONSTRAINT; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+ALTER TABLE ONLY profile_sections
+    ADD CONSTRAINT profile_sections_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: profiles_pkey; Type: CONSTRAINT; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+ALTER TABLE ONLY profiles
+    ADD CONSTRAINT profiles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+ALTER TABLE ONLY roles
+    ADD CONSTRAINT roles_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+ALTER TABLE ONLY users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_active_admin_comments_on_author_type_and_author_id; Type: INDEX; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE INDEX index_active_admin_comments_on_author_type_and_author_id ON active_admin_comments USING btree (author_type, author_id);
+
+
+--
+-- Name: index_active_admin_comments_on_namespace; Type: INDEX; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE INDEX index_active_admin_comments_on_namespace ON active_admin_comments USING btree (namespace);
+
+
+--
+-- Name: index_active_admin_comments_on_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE INDEX index_active_admin_comments_on_resource_type_and_resource_id ON active_admin_comments USING btree (resource_type, resource_id);
+
+
+--
+-- Name: index_profiles_on_profile_section_id; Type: INDEX; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE INDEX index_profiles_on_profile_section_id ON profiles USING btree (profile_section_id);
+
+
+--
+-- Name: index_profiles_on_user_id; Type: INDEX; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE INDEX index_profiles_on_user_id ON profiles USING btree (user_id);
+
+
+--
+-- Name: index_roles_on_name; Type: INDEX; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE INDEX index_roles_on_name ON roles USING btree (name);
+
+
+--
+-- Name: index_roles_on_name_and_resource_type_and_resource_id; Type: INDEX; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE INDEX index_roles_on_name_and_resource_type_and_resource_id ON roles USING btree (name, resource_type, resource_id);
+
+
+--
+-- Name: index_users_roles_on_user_id_and_role_id; Type: INDEX; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE INDEX index_users_roles_on_user_id_and_role_id ON users_roles USING btree (user_id, role_id);
+
+
+--
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: AlisonRowland; Tablespace: 
+--
+
+CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: AlisonRowland
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM "AlisonRowland";
+GRANT ALL ON SCHEMA public TO "AlisonRowland";
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

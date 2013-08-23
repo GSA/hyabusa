@@ -1,0 +1,7 @@
+= simple_form_for @person, html: { class: 'form-inline' } do |p|
+  = p.input :first_name
+  = p.input :last_name
+  = p.input :email
+  = p.input :title
+  = p.button :submit, input_html: { class: 'btn-secondary' }
+

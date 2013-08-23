@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_one :profile
+
   rolify
 
   validates_presence_of :name
