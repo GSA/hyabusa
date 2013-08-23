@@ -6,6 +6,7 @@ require 'rspec/rails'
 require 'email_spec'
 #require 'rspec/autorun'
 require 'simplecov'
+require 'factory_girl_rails'
 SimpleCov.start 'rails'
 
 # Requires supporting ruby files with custom matchers and macros, etc,

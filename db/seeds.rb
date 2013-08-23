@@ -7,8 +7,22 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 # Environment variables (ENV['...']) can be set in the file config/application.yml.
 # See http://railsapps.github.io/rails-environment-variables.html
-puts 'ROLES'
-YAML.load(ENV['ROLES']).each do |role|
-  Role.find_or_create_by_name(role)
-  puts 'role: ' << role
+
+require 'factory_girl_rails'
+
+if Role.count == 0
+  YAML.load(ENV['ROLES']).each do |role|
+    Role.create!(role)
+    puts 'role: ' << role
+  end
 end
+
+if EntityType.count == 0
+  FactoryGirl.create(:entity_type_usc)
+  FactoryGirl.create(:entity_type_student)
+  FactoryGirl.create(:entity_type_corp_domestic)
+  FactoryGirl.create(:entity_type_us_corp_foreign)
+  FactoryGirl.create(:entity_type_corp_foreign)
+  FactoryGirl.create(:entity_type_other)
+end
+
