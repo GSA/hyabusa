@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130823192350) do
+ActiveRecord::Schema.define(version: 20130826201648) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -36,6 +36,17 @@ ActiveRecord::Schema.define(version: 20130823192350) do
     t.datetime "updated_at"
   end
 
+  create_table "profile_people", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "title"
+    t.string   "phone_work"
+    t.string   "phone_mobile"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "profiles", force: true do |t|
     t.string   "contact_first_name"
     t.string   "contact_last_name"
@@ -44,6 +55,20 @@ ActiveRecord::Schema.define(version: 20130823192350) do
     t.integer  "num_employees"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "annual_revenue"
+    t.integer  "annual_sales"
+    t.string   "org_type"
+    t.string   "name"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "postal_code"
+    t.string   "country"
+    t.boolean  "currently_exporting"
+    t.integer  "naics_sector"
+    t.integer  "naics_code"
+    t.integer  "duns_no"
   end
 
   add_index "profiles", ["entity_type_id"], name: "index_profiles_on_entity_type_id"
