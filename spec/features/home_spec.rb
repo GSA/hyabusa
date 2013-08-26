@@ -8,21 +8,12 @@ describe "Home", :type => :feature do
   context "when a user is logged in" do
     before do
       user = User.create!(@user_attrs)
-      current_user = user
     end
 
     it 'should show them a link to find opportunities relevant to them' do
+      login_with_myusa
       visit '/'
       page.should have_content('Relevant to me')
-    end
-  end
-
-  describe "Finding Opportunities", :type => :feature do
-    context "when a user is logged in" do
-      before do
-        user = User.create!(@user_attrs)
-        current_user = user
-      end
     end
   end
 end
