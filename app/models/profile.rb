@@ -1,4 +1,5 @@
 class Profile < ActiveRecord::Base
+  belongs_to :user
   belongs_to :entity_type
 
   has_many :profile_people

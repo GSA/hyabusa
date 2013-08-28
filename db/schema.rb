@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130826201648) do
+ActiveRecord::Schema.define(version: 20130827021621) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 20130826201648) do
     t.integer  "naics_sector"
     t.integer  "naics_code"
     t.integer  "duns_no"
+    t.integer  "user_id"
   end
 
   add_index "profiles", ["entity_type_id"], name: "index_profiles_on_entity_type_id"
