@@ -14,7 +14,10 @@ gem 'responders',          github: 'plataformatec/responders'
 gem 'inherited_resources', github: 'josevalim/inherited_resources'
 gem 'ransack'
 gem 'activeadmin',         github: 'gregbell/active_admin',         branch: 'rails4'
-gem 'formtastic',          github: 'justinfrench/formtastic'
+gem 'country_select'
+gem 'countries'
+
+gem 'show_for'
 
 gem 'cancan'
 gem 'figaro'

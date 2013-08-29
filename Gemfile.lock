@@ -26,13 +26,6 @@ GIT
       responders (~> 1.0.0.rc)
 
 GIT
-  remote: git://github.com/justinfrench/formtastic.git
-  revision: cd6cb88f28ea7444267802ced8e5ec0f5cfd0f90
-  specs:
-    formtastic (2.3.0.rc2)
-      actionpack (>= 3.0)
-
-GIT
   remote: git://github.com/plataformatec/responders.git
   revision: 6b57da9efb85c79157434a85c1bc34b2b4231aaa
   specs:
@@ -106,6 +99,10 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    countries (0.9.2)
+      currencies (>= 0.4.0)
+    country_select (1.2.0)
+    currencies (0.4.2)
     daemons (1.1.9)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
@@ -134,6 +131,8 @@ GEM
       bundler (~> 1.0)
       rails (>= 3, < 5)
     formatador (0.2.4)
+    formtastic (2.3.0.rc2)
+      actionpack (>= 3.0)
     google-analytics-rails (0.0.4)
     guard (1.8.1)
       formatador (>= 0.2.4)
@@ -297,6 +296,7 @@ GEM
       sass (>= 3.1.10)
       sprockets-rails (~> 2.0.0)
     sexp_processor (4.2.1)
+    show_for (0.2.4)
     simple_form (3.0.0.rc)
       actionpack (>= 4.0.0.rc1, < 4.1)
       activemodel (>= 4.0.0.rc1, < 4.1)
@@ -358,12 +358,13 @@ DEPENDENCIES
   cancan
   capybara
   coffee-rails (~> 4.0.0)
+  countries
+  country_select
   database_cleaner
   devise
   email_spec
   factory_girl_rails
   figaro
-  formtastic!
   google-analytics-rails
   guard-bundler
   guard-rails
@@ -393,6 +394,7 @@ DEPENDENCIES
   rolify
   rspec-rails
   sass-rails (~> 4.0.0)
+  show_for
   simple_form (>= 3.0.0.rc)
   simplecov
   slim

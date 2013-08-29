@@ -1,0 +1,22 @@
+= simple_form_for @profile, url: profile_path, html: { class: 'form-horizontal' } do |f|
+  = f.input :contact_first_name
+  = f.input :contact_last_name
+  = f.input :contact_email
+  = f.association :entity_type
+  = f.input :num_employees
+  = f.input :annual_revenue, input_html: {  }
+  = f.input :annual_sales, input_html: {  }
+  = f.input :org_type, as: :select, collection: Profile::ORGANIZATION_TYPES.map{|x| [x,x]}, input_html: {  }
+  = f.input :name, input_html: {  }
+  = f.input :address1, input_html: {  }
+  = f.input :address2, input_html: {  }
+  = f.input :city, input_html: {  }
+  = f.input :state, as: :select, collection: Profile::US_STATES.map{|k,v| [v['name'], k]}, input_html: {  }
+  = f.input :postal_code, input_html: {  }
+  /!= f.input :country, as: :country, input_html: {  }
+  = f.input :currently_exporting, input_html: {  }
+  = f.input :naics_sector, input_html: {  }
+  = f.input :naics_code, input_html: {  }
+  = f.input :duns_no, input_html: {  }
+  .form-actions
+    = f.button :submit, input_html: { class: 'btn-primary' }
