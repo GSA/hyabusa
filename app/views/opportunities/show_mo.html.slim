@@ -1,7 +1,3 @@
-= content_for :footer do
-	= javascript_include_tag 'jquery.quicksand.js'
-	= javascript_include_tag 'http://code.jquery.com/jquery-migrate-1.2.1.js'
-
 h2 id="oper-name" class="start-hidden"
 	|
 		&nbsp;
@@ -12,56 +8,11 @@ p id="oper-description" class="start-hidden"
 div class="loading"
 	
 
-ul id="oper-nav"
-	li data-id="external-dependencies"
-		| External Dependencies
-	li data-id="whats-next"
-		| What's Next?
-	li data-id="help"
-		| Help!
-
-ul id="operations" class="start-hidden"
+div id="operations" class="start-hidden"
 
 
-javascript:
-	$(function() {
+= content_for :footer do
+	javascript:
+		modusOperandi.getOps("#{ENV['MODUS_OPERANDI_HOME']}/api/operations/#{params[:mo_id]}/map")
 
-		$.get( '#{ENV['MODUS_OPERANDI_HOME']}/api/operations/#{params[:mo_id]}/map', function(data) {
-			console.log(data);
-			$('#oper-name').html(data['name']).addClass('ajax-loaded')
-			$('#oper-description').html(data['description']).addClass('ajax-loaded')
-			$.each( data['children'], function(k,v) {
-				$elm = $('<li></li>')
-				$elm.html(v['name'])
-				attribs = '';
-				if (v['dependencies']) { $elm.attr('data-id','external-dependencies') }
-				if (v['whats-next']) { attribs = attribs + ' whats-next' }
-
-				$elm.attr('data-id',attribs)
-				$('#operations').append($elm)
-
-				console.log(v)
-				console.log(v['dependencies'])
-
-			});
-			$('#operations').addClass('ajax-loaded')
-			$('.ajax-loaded').fadeIn()
-		});
-
-		$('#oper-nav li').click(function(e) {
-			$('.all').quicksand( $('.warm li'), {
-	      duration: 3000,
-	      attribute: 'id'
-	    });
-	    e.preventDefault();
-		})
-		
-	});
-
-
-style
-	| 
-		.start-hidden { display: none; }
-		#operations { list-style: none; }
-		#operations li { display: block; width: 128px; height: 128px; border: 1px solid #000; float: left; margin: 10px; padding: 10px; text-align: center; background: #dedede; }
 		

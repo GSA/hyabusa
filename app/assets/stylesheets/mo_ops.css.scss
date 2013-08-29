@@ -1,0 +1,63 @@
+#ops {
+	div {
+		padding: 5px 20px; font-family: 'Bitter';
+	}
+	.dependencies {
+		float: right;
+		width: 35%;
+		padding: 8px 12px;
+		background: #900;
+		box-shadow: 2px 3px 10px #545454;
+		font-size: 14px;
+	}
+	.level-0 {
+		background: #6CA40B;
+		font-size: 1.4em;
+		line-height: 1.2em;
+		min-height: 200px;
+		border-bottom: 3px dotted #75ae11;
+		.title { 
+			font-size: 1.8em; 
+			line-height: 1.6em; 
+		}
+		.level-1 {
+			background: #359AB7;
+			font-size: 1.2em; 
+			line-height: 1.1em; 
+			margin: 0 20px 0 45px; 
+			border-bottom: 3px dotted #3ba2c0; 
+			.title { 
+				font-size: 1.4em; 
+				line-height: 1.2em; 
+			}
+		}
+	}
+	.title {
+		font-weight: bold; 
+		display: block;
+	}
+	.op { 
+		color: #FFFFFF; 
+		clear: both; 
+		position: relative; 
+		z-index: 1;
+		a { 
+			color: #005580; 
+		}
+		a, .title, p {
+			z-index: 1;
+			position: relative;
+		}
+	}
+	.step { 
+		position: absolute; 
+		top: 80px; 
+		left: 0; 
+		font-size: 230px; 
+		font-family: 'Arial'; 
+		font-weight: bold; 
+		opacity: 0.2; 
+		z-index: 0;
+		cursor: default;
+	}
+}
