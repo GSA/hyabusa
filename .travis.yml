@@ -1,35 +1,34 @@
 after_failure:
-- mysql -e 'show databases;'
-- cat ./config/database.yml
-- echo $RAILS_ENV
-- bundle exec rake --version
-- ruby env
+  - mysql -e 'show databases;'
+  - cat ./config/database.yml
+  - echo $RAILS_ENV
+  - bundle exec rake --version
+  - ruby env
 before_script:
   - cp config/database.travis.yml config/database.yml
   - psql -c 'create database hyabusa_test' -U postgres
 install:
-- bundle install --without development
+  - bundle install --without development
 language: ruby
 notifications:
   email:
     recipients:
-    - alison.rowland@gsa.gov
-    - john.stone@gsa.gov
-    - gregory.gershman@gsa.gov
-    - john.felleman@gsa.gov
-    - john.kemp@gsa.gov
-    - justin.grevich@gsa.gov
-    - raphael.villas@gsa.gov
+      - alison.rowland@gsa.gov
+      - john.stone@gsa.gov
+      - gregory.gershman@gsa.gov
+      - john.felleman@gsa.gov
+      - john.kemp@gsa.gov
+      - justin.grevich@gsa.gov
+      - raphael.villas@gsa.gov
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
   - bundle exec rake spec
-services: postgres
 rvm:
-- 2.0.0
+  - 2.0.0
 branches:
   only:
-  - master
+    - master
 deploy:
   provider: heroku
   api_key:
@@ -38,3 +37,4 @@ deploy:
   on:
     repo: GSA-OCSIT/hyabusa
   run: "rake db:migrate"
+
