@@ -5,9 +5,8 @@ after_failure:
 - bundle exec rake --version
 - ruby env
 before_script:
-  # - cp config/database.travis.yml config/database.yml
-  # - mysql -e 'create database strano_test'
-  # - psql -c 'create database strano_test' -U postgres
+  - cp config/database.travis.yml config/database.yml
+  - psql -c 'create database hyabusa_test' -U postgres
 install:
 - bundle install --without development
 language: ruby
