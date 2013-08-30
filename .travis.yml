@@ -1,0 +1,42 @@
+after_failure:
+- mysql -e 'show databases;'
+- cat ./config/database.yml
+- echo $RAILS_ENV
+- bundle exec rake --version
+- ruby env
+before_script:
+  # - cp config/database.travis.yml config/database.yml
+  # - mysql -e 'create database strano_test'
+  # - psql -c 'create database strano_test' -U postgres
+install:
+- bundle install --without development
+language: ruby
+notifications:
+  email:
+    recipients:
+    - alison.rowland@gsa.gov
+    - john.stone@gsa.gov
+    - gregory.gershman@gsa.gov
+    - john.felleman@gsa.gov
+    - john.kemp@gsa.gov
+    - justin.grevich@gsa.gov
+    - raphael.villas@gsa.gov
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rake spec
+services: postgres
+rvm:
+- 2.0.0
+- 1.9.3
+branches:
+  only:
+  - master
+deploy:
+  provider: heroku
+  api_key:
+    secure: YyB38JA2cdCYtwpoahGo9PJXHT3ShSP0QkqMQkPQrghz4clBC8Zf8GURiD1R5RoXZpBCVldjfbhMrZWzCmpWBXl7W1PLZaKE1t7ryiYRmzIADMlU2c/yKw0goGwYyI2PpVCgttzK6QajklKoKgzIsFbP+JMCy1/IgMggBg/0eiM=
+  app: hyabusa
+  on:
+    repo: GSA-OCSIT/hyabusa
+  run: "rake db:migrate"
