@@ -238,3 +238,12 @@ h1, h2, h3, h4 {
 		}
 	}
 }
+
+.loading {
+	background: transparent image-url('loading.gif') no-repeat center center;
+	display: block;
+	min-height: 200px;
+	width: 100%;
+}
+
+.start-hidden { display: none; }

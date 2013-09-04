@@ -6,7 +6,7 @@
 		ul
 		- @opportunities.each do |opp|
 			li
-				= link_to opp['name'], "/opportunities/mo/#{opp['id']}"
+				= link_to opp['name'], "/opportunities/mo/#{opp['url']}"
 				p
 					= opp['description']
 

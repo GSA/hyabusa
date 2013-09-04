@@ -1,7 +1,18 @@
-h2
-	= @opportunity['name']
-p
-	= @opportunity['description']
+h2 id="oper-name" class="start-hidden"
+	|
+		&nbsp;
+p id="oper-description" class="start-hidden"
+	|
+		&nbsp;
+
+div class="loading"
 	
-div style="width: 960px; margin: 0 auto;"
-	<iframe src="http://prezi.com/embed/to5-dmy7ylxs/?bgcolor=ffffff&amp;lock_to_path=1&amp;autoplay=0&amp;autohide_ctrls=0&amp;features=undefined&amp;disabled_features=undefined" width="960" height="580" frameBorder="0" style="margin: 0 auto; width: 960px;"></iframe>
+
+div id="operations" class="start-hidden"
+
+
+= content_for :footer do
+	javascript:
+		modusOperandi.getOps("#{ENV['MODUS_OPERANDI_HOME']}/api/operations/#{params[:mo_id]}/map")
+
+		
