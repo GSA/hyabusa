@@ -3,6 +3,7 @@ class Profile < ActiveRecord::Base
   belongs_to :entity_type
 
   has_many :profile_people
+  accepts_nested_attributes_for :profile_people
 
   ORGANIZATION_TYPES = [
     'Cooperative/Consortium', 'Distributor', 'Education',

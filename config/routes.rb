@@ -7,7 +7,9 @@ Mybusa::Application.routes.draw do
   get '/opportunities/mo/:mo_id' => 'opportunities#show_mo'
   get 'find-opportunities', to: 'opportunities#index', as: :find_opportunities
 
-  resource :profile
+  resource :profile do
+    resources :profile_people, as: 'people'
+  end
 
   get '/auth/:provider/callback' => 'sessions#create'
   get '/signin' => 'sessions#new', :as => :signin

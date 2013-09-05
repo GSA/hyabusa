@@ -21,3 +21,9 @@
 
   .form-actions
     = f.button :submit, input_html: { class: 'btn-primary' }
+
+- for pp in @profile.profile_people do
+    = render 'person_form', locals: { person: pp }
+
+= render 'person_form', locals: { person: @person }
+

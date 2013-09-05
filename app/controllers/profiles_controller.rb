@@ -9,11 +9,14 @@ class ProfilesController < ApplicationController
       redirect_to edit_profile_path
     else
       @profile = Profile.new(permitted_params || {})
+      @profile.profile_people.build
+      @person = ProfilePerson.new
     end
   end
 
   def edit
     @profile = Profile.find_by_user_id(current_user.id)
+    @person = ProfilePerson.new
   end
 
   def create
@@ -66,6 +69,12 @@ class ProfilesController < ApplicationController
         :naics_sector,
         :naics_code,
         :duns_no
+      ],
+      :people_attributes => [
+        :first_name,
+        :last_name,
+        :email,
+        :title
       ],
     )
   end
