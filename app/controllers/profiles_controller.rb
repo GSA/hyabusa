@@ -45,26 +45,28 @@ class ProfilesController < ApplicationController
   private
 
   def permitted_params
-    params.permit(:profile => [
-      :profile_id,
-      :contact_first_name,
-      :contact_last_name,
-      :contact_email,
-      :entity_type_id,
-      :num_employees,
-      :annual_revenue,
-      :annual_sales,
-      :org_type,
-      :name,
-      :address1,
-      :address2,
-      :city,
-      :state,
-      :postal_code,
-      :currently_exporting,
-      :naics_sector,
-      :naics_code,
-      :duns_no
-    ])
+    params.permit(
+      :profile => [
+        :profile_id,
+        :contact_first_name,
+        :contact_last_name,
+        :contact_email,
+        :entity_type_id,
+        :num_employees,
+        :annual_revenue,
+        :annual_sales,
+        :org_type,
+        :company_name,
+        :address1,
+        :address2,
+        :city,
+        :state,
+        :postal_code,
+        :currently_exporting,
+        :naics_sector,
+        :naics_code,
+        :duns_no
+      ],
+    )
   end
 end
