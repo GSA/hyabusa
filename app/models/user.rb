@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   rolify
 
+  has_many :profiles
+
   validates_presence_of :name
 
   after_create :add_roles
