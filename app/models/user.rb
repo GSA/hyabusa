@@ -1,7 +1,9 @@
 class User < ActiveRecord::Base
   rolify
 
-  has_many :profiles
+  has_one :profile
+  # will eventually change to has_many
+  #has_many :profiles
 
   validates_presence_of :name
 

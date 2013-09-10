@@ -1,0 +1,7 @@
+= simple_form_for profile, url: profile_path do |f|
+    = f.input :profile_section_id, as: :hidden
+    = simple_fields_for :properties, OpenStruct.new(@profile.properties) do |p_f|
+        - f.object.profile_section.fields.each do |field|
+            = p_f.input field.name, required: field.required
+
+    = f.button :submit
