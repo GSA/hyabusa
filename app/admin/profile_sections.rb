@@ -9,7 +9,9 @@ ActiveAdmin.register ProfileSection do
       f.has_many :fields do |field_f|
         field_f.input :id, as: :hidden
         field_f.input :name, input_html: { size: 20 }
+        field_f.input :label, input_html: { size: 25 }
         field_f.input :field_type, as: :select, collection: ProfileField::FIELD_TYPES
+        field_f.input :description, as: :text
         field_f.input :required
       end
     end
@@ -22,14 +24,14 @@ ActiveAdmin.register ProfileSection do
       row :created_at
       row :updated_at
       row :fields do |section|
-        section.fields.map{|f| "#{f.name.capitalize()} (#{f.field_type})"}.join(', ').html_safe
+        section.fields.map{|f| "#{f.label} (#{f.field_type})"}.join(', ').html_safe
       end
     end
   end
 
   controller do
     def permitted_params
-      params.permit(:profile_section => [:id, :name, :fields_attributes => [:id, :name, :field_type, :required]])
+      params.permit(:profile_section => [:id, :name, :fields_attributes => [:id, :name, :label, :field_type, :description, :required]])
     end
   end
 end

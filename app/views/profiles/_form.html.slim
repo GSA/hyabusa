@@ -2,6 +2,6 @@
     = f.input :profile_section_id, as: :hidden
     = simple_fields_for :properties, OpenStruct.new(@profile.properties) do |p_f|
         - f.object.profile_section.fields.each do |field|
-            = p_f.input field.name, required: field.required
+            = p_f.input field.name, label: field.label, required: field.required, hint: field.description
 
     = f.button :submit
