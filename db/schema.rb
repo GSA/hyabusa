@@ -107,6 +107,7 @@ ActiveRecord::Schema.define(version: 20130926153731) do
     t.string   "uid"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "agency"
   end
 
   create_table "users_roles", id: false, force: true do |t|

@@ -108,6 +108,7 @@ GEM
     country_select (1.2.0)
     currencies (0.4.2)
     daemons (1.1.9)
+    dalli (2.6.4)
     database_cleaner (1.0.1)
     debug_inspector (0.0.2)
     devise (3.1.0)
@@ -214,6 +215,7 @@ GEM
       treetop (~> 1.4.8)
     method_source (0.8.2)
     mime-types (1.25)
+    memcachier (0.0.2)
     mini_portile (0.5.1)
     minitest (4.7.5)
     multi_json (1.8.0)
@@ -377,6 +379,7 @@ DEPENDENCIES
   countries
   country_select
   database_cleaner (= 1.0.1)
+  dalli
   devise
   email_spec
   factory_girl_rails
@@ -395,6 +398,7 @@ DEPENDENCIES
   inherited_resources!
   jbuilder (~> 1.2)
   jquery-rails
+  memcachier
   omniauth
   omniauth-google-oauth2
   omniauth-myusa!

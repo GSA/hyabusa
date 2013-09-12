@@ -19,6 +19,8 @@ gem 'countries'
 
 gem 'show_for'
 gem 'carrierwave'
+gem 'memcachier'
+gem 'dalli'
 gem 'cancan'
 gem 'figaro'
 gem 'omniauth'

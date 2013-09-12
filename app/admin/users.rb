@@ -4,6 +4,7 @@ ActiveAdmin.register User do
     column :name
     column :email
     #column :provider
+    column :agency
     column :roles, sortable: 'roles.name' do |user|
       user.roles.map{|r| link_to r.name.capitalize(), admin_role_path(r)}.join(', ').html_safe
     end
@@ -15,6 +16,7 @@ ActiveAdmin.register User do
     f.inputs "User" do
       f.input :name
       f.input :email
+      f.input :agency, as: :select, collection: AGENCIES
     end
     f.inputs "Roles" do
       f.input :roles, :as => :check_boxes
@@ -28,6 +30,7 @@ ActiveAdmin.register User do
       row :id
       row :uid
       row :email
+      row :agency
       row :created_at
       row :updated_at
       row :roles do |user|
@@ -38,7 +41,7 @@ ActiveAdmin.register User do
 
   controller do
     def permitted_params
-      params.permit(:user => [:name, :email, :roles])
+      params.permit(:user => [:id, :name, :email, :agency, :roles])
     end
 
     def scoped_collection
