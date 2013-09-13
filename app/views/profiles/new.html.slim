@@ -1,4 +1,10 @@
-h2 Create a New Profile
-h3
- =  @profile.profile_section.name + " Data"
-= render partial: "form", locals: { profile: @profile }
+.container
+  .row
+    .span10
+      h2 Create a New Profile
+      h3
+       =  @profile.profile_section.name + " Data"
+      = render partial: "form", locals: { profile: @profile }
+
+    .span2
+      = render partial: "sidebar"

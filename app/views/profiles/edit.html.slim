@@ -1,4 +1,10 @@
-h2 Edit Your Profile
-h3
- =  @profile.profile_section.name + " Data"
-= render partial: "form"
+.container
+  .row
+    .span10
+      h2 Edit Your Profile
+      h3
+       =  @profile.profile_section.name + " Data"
+      = render partial: "form"
+
+    .span2
+      = render partial: "sidebar"
