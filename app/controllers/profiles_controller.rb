@@ -18,7 +18,9 @@ class ProfilesController < ApplicationController
   end
 
   def edit
-    @profile = Profile.find_by_user_id(current_user.id)
+    unless @profile = Profile.find_by_user_id(current_user.id)
+      redirect_to new_profile_path, notice: 'You must create a new profile.'
+    end
   end
 
   def create
