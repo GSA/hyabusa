@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130911192735) do
+ActiveRecord::Schema.define(version: 20130916155656) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -41,6 +41,17 @@ ActiveRecord::Schema.define(version: 20130911192735) do
     t.datetime "updated_at"
     t.string   "label"
     t.text     "description"
+  end
+
+  create_table "profile_section_authorizations", force: true do |t|
+    t.integer  "profile_section_id"
+    t.boolean  "is_admin_approved"
+    t.boolean  "is_pra_pending"
+    t.boolean  "is_pra_approved"
+    t.string   "omb_control_no"
+    t.date     "pra_approved_on"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "profile_sections", force: true do |t|
