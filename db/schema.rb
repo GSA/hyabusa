@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130916155656) do
+ActiveRecord::Schema.define(version: 20130916200040) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20130916155656) do
     t.date     "pra_approved_on"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "pra_not_applicable"
   end
 
   create_table "profile_sections", force: true do |t|
