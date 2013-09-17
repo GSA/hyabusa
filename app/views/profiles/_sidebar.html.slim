@@ -1,7 +1,8 @@
 ul class="nav nav-list"
-  li.nav-header Profile Sections (TODO)
-  li.active
-    a href="#" Core
-  li
-    a href="#" Export
+  li.nav-header Profile Sections
+  - for section in ProfileSection.visible(sandbox=true)
+    /! TODO: remove sandbox from above or work it out so only super_admins get the sandboxed version
+    li.active
+      a href="#"
+        = section.name
   
