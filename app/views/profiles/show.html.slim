@@ -1,25 +1,94 @@
-= show_for @profile do |p|
-  = p.attribute :company_name, input_html: {  }
-  = p.attribute :address1, input_html: {  }
-  = p.attribute :address2, input_html: {  }
-  = p.attribute :city, input_html: {  }
-  = p.attribute :state, as: :select, collection: Profile::US_STATES.map{|k,v| [v['name'], k]}, input_html: {  }
-  = p.attribute :postal_code, input_html: {  }
-  /!= p.attribute :country, as: :country, input_html: {  }
-  = p.attribute :contact_first_name
-  = p.attribute :contact_last_name
-  = p.attribute :contact_email
-  = p.association :entity_type
-  = p.attribute :num_employees
-  = p.attribute :annual_revenue, input_html: {  }
-  = p.attribute :annual_sales, input_html: {  }
-  = p.attribute :org_type, as: :select, collection: Profile::ORGANIZATION_TYPES.map{|x| [x,x]}, input_html: {  }
-  = p.attribute :currently_exporting, input_html: {  }
-  = p.attribute :naics_sector, input_html: {  }
-  = p.attribute :naics_code, input_html: {  }
-  = p.attribute :duns_no, input_html: {  }
+.row
+    h3 My BusinessUSA Profile
 
-  - unless p.object.profile_people.empty?
-      = p.association :profile_people
+    table.table.table-striped.span8
+      tbody
+        tr
+          th Company name
+          td
+            = @profile.company_name
+        tr
+          th Address 1
+          td
+            = @profile.address1
+        tr
+          th Address 2
+          td
+            = @profile.address2
+        tr
+          th City
+          td
+            = @profile.city
+        tr
+          th State
+          td
+            = @profile.state
+        tr
+          th Zip Code
+          td
+            = @profile.postal_code
+        tr
+          th Country
+          td
+            = @profile.country
+        tr
+          th Entity Type
+          td
+            = @profile.entity_type.name
+        tr
+          th Number of Employees
+          td
+            = @profile.num_employees
+        tr
+          th Annual Revenue
+          td
+            = @profile.annual_revenue
+        tr
+          th Annual Sales
+          td
+            = @profile.annual_sales
+        tr
+          th Organization Type
+          td
+            = @profile.org_type
+        tr
+          th Currently Exporting
+          td
+            = @profile.currently_exporting
+        tr
+          th NAICS Sector
+          td
+            = @profile.naics_sector
+        tr
+          th NAICS Code
+          td
+            = @profile.naics_code
+        tr
+          th DUNS Number
+          td
+            = @profile.duns_no
 
+.row
 
+    h4 Business Contacts
+
+    table.table.table-striped.span8
+      thead
+        tr
+          th First Name
+          th Last Name
+          th Title
+          th Email
+      tbody
+        - for person in @profile.people do
+            tr
+              td
+                = person.first_name
+              td
+                = person.last_name
+              td
+                = person.title
+              td
+                = person.email
+    
+    

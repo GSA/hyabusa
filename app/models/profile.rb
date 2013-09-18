@@ -2,8 +2,8 @@ class Profile < ActiveRecord::Base
   belongs_to :user
   belongs_to :entity_type
 
-  has_many :profile_people
-  accepts_nested_attributes_for :profile_people
+  has_many :people, class_name: "ProfilePerson"
+  accepts_nested_attributes_for :people, allow_destroy: true
 
   ORGANIZATION_TYPES = [
     'Cooperative/Consortium', 'Distributor', 'Education',

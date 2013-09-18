@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130905204605) do
+ActiveRecord::Schema.define(version: 20130918151109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -53,9 +52,6 @@ ActiveRecord::Schema.define(version: 20130905204605) do
   end
 
   create_table "profiles", force: true do |t|
-    t.string   "contact_first_name"
-    t.string   "contact_last_name"
-    t.string   "contact_email"
     t.integer  "entity_type_id"
     t.integer  "num_employees"
     t.datetime "created_at"

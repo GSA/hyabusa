@@ -1,0 +1,9 @@
+fieldset
+  legend
+    | Company Contact
+  .form-group
+    = f.input :first_name
+    = f.input :last_name
+    = f.input :email
+    = f.input :title
+    = link_to "remove", "#", class: "remove_fields"
