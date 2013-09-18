@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130916155656) do
+ActiveRecord::Schema.define(version: 20130917151229) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "hstore"
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -48,6 +52,10 @@ ActiveRecord::Schema.define(version: 20130916155656) do
   end
 
   create_table "profile_section_authorizations", force: true do |t|
+<<<<<<< HEAD
+=======
+    t.integer  "profile_section_id"
+>>>>>>> 85fcb224f0c2517427fbd783200fe6855bbfdaf0
     t.boolean  "is_admin_approved"
     t.boolean  "is_pra_pending"
     t.boolean  "is_pra_approved"
@@ -55,6 +63,10 @@ ActiveRecord::Schema.define(version: 20130916155656) do
     t.date     "pra_approved_on"
     t.datetime "created_at"
     t.datetime "updated_at"
+<<<<<<< HEAD
+=======
+    t.boolean  "pra_applies",        default: true
+>>>>>>> 85fcb224f0c2517427fbd783200fe6855bbfdaf0
   end
 
   create_table "profile_sections", force: true do |t|
