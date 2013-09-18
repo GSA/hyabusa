@@ -1,7 +1,7 @@
 class ProfilesController < ApplicationController
 
   def show
-    @profile = Profile.find_by_user_id(current_user.id)
+    @profile = current_user.profile
 
     unless @profile
       redirect_to new_profile_path
@@ -18,14 +18,16 @@ class ProfilesController < ApplicationController
   end
 
   def edit
-    unless @profile = Profile.find_by_user_id(current_user.id)
+    unless @profile = Profile.where(user: current_user).first
       redirect_to new_profile_path, notice: 'You must create a new profile.'
     end
   end
 
   def create
+    #binding.pry
     @profile = Profile.new(permitted_params[:profile])
-    @profile.user(current_user)
+    @profile.update_properties(permitted_params[:properties])
+    @profile.user = current_user
 
     if @profile.save
       redirect_to @profile, notice: 'Profile was successfully created.'
@@ -35,8 +37,9 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    @profile = Profile.find_by_user_id(current_user.id)
+    @profile = current_user.profile
 
+    @profile.update_properties(permitted_params[:properties])
     if @profile.update_attributes!(permitted_params[:profile])
       flash[:notice] = 'Your profile was successfully updated.'
       redirect_to @profile, notice: 'Your profile was successfully updated.'
@@ -52,6 +55,6 @@ class ProfilesController < ApplicationController
   private
 
   def permitted_params
-    params.permit(:profile => [:id, :profile_section_id]).permit(:properties => [ "Company Name" ])
+    params.permit(profile: [:profile_section_id], properties: [:company_name, :address1, :address2, :city, :state, :zip_code])
   end
 end
