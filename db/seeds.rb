@@ -12,7 +12,7 @@ require 'factory_girl_rails'
 
 if Role.count == 0
   YAML.load(ENV['ROLES']).each do |role|
-    Role.create!(role)
+    Role.create!(name: role)
     puts 'role: ' << role
   end
 end
