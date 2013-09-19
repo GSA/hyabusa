@@ -34,7 +34,4 @@ deploy:
   api_key:
     secure: YyB38JA2cdCYtwpoahGo9PJXHT3ShSP0QkqMQkPQrghz4clBC8Zf8GURiD1R5RoXZpBCVldjfbhMrZWzCmpWBXl7W1PLZaKE1t7ryiYRmzIADMlU2c/yKw0goGwYyI2PpVCgttzK6QajklKoKgzIsFbP+JMCy1/IgMggBg/0eiM=
   app: hyabusa
-  on:
-    repo: GSA-OCSIT/hyabusa
   run: "rake db:migrate"
-

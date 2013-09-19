@@ -10,10 +10,10 @@ describe "Home", :type => :feature do
       user = User.create!(@user_attrs)
     end
 
-    it 'should show them a link to find opportunities relevant to them' do
+    it "should show the user's business profiles" do
       login_with_myusa
       visit '/'
-      page.should have_content('Relevant to me')
+      page.should have_content('my business profiles')
     end
   end
 end
