@@ -1,12 +1,14 @@
 class ProfilesController < ApplicationController
 
   def show
-    @profile = current_user.profile
-
-    if @profile
-      @profile.people.build
-    else
+    unless @profile = current_user.profile
       redirect_to new_profile_path, notice: 'You must create a profile.'
+    end
+
+    respond_to do |format|
+      format.html
+      format.xml  { render xml: @profile, include: :people }
+      format.json { render json: @profile, include: :people }
     end
   end
 
@@ -15,8 +17,6 @@ class ProfilesController < ApplicationController
       redirect_to edit_profile_path
     else
       @profile = Profile.new(permitted_params || {})
-      @profile.people.build
-      #@person = ProfilePerson.new
     end
   end
 
@@ -25,7 +25,7 @@ class ProfilesController < ApplicationController
     @profile.user = current_user
 
     if @profile.save
-      redirect_to @profile, notice: 'Profile was successfully created.'
+      redirect_to profile_path, notice: 'Profile was successfully created.'
     else
       render action: :new
     end
@@ -33,7 +33,6 @@ class ProfilesController < ApplicationController
 
   def edit
     @profile = current_user.profile
-    @profile.people.build
   end
 
   def update
@@ -41,7 +40,7 @@ class ProfilesController < ApplicationController
 
     if @profile.update_attributes!(permitted_params[:profile])
       flash[:notice] = 'Your profile was successfully updated.'
-      redirect_to @profile, notice: 'Your profile was successfully updated.'
+      redirect_to profile_path, notice: 'Your profile was successfully updated.'
     else
       render action: :edit
     end
@@ -80,7 +79,8 @@ class ProfilesController < ApplicationController
           :first_name,
           :last_name,
           :email,
-          :title
+          :title,
+          :_destroy
         ],
       ],
     )
