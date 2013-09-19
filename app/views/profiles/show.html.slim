@@ -1,6 +1,12 @@
-.row
-    h3 My BusinessUSA Profile
+.container
+  .row.span10
+    .page-header
+      h3
+        | My BusinessUSA Profile&nbsp;&nbsp;
+        small
+          = link_to "(edit)", edit_profile_path
 
+  .row.span10
     table.table.table-striped.span8
       tbody
         tr
@@ -68,10 +74,14 @@
           td
             = @profile.duns_no
 
-.row
+  .row.span10
+    .page-header
+        h4
+          | Business Contacts&nbsp;&nbsp;
+          small
+            = link_to "(edit)", edit_profile_path(anchor: 'contacts')
 
-    h4 Business Contacts
-
+  .row.span10
     table.table.table-striped.span8
       thead
         tr
@@ -81,14 +91,13 @@
           th Email
       tbody
         - for person in @profile.people do
-            tr
-              td
-                = person.first_name
-              td
-                = person.last_name
-              td
-                = person.title
-              td
-                = person.email
-    
-    
+          tr
+            td
+              = person.first_name
+            td
+              = person.last_name
+            td
+              = person.title
+            td
+              = person.email
+      

@@ -1,9 +1,13 @@
+a[id="contacts"]
 fieldset
   legend
-    | Company Contact
-  .form-group
+    | Company Contact&nbsp;
+    small
+      = link_to "(remove)", "#", class: "remove_fields"
+  .controls.controls-row
+    = f.input :id, as: :hidden
     = f.input :first_name
     = f.input :last_name
     = f.input :email
     = f.input :title
-    = link_to "remove", "#", class: "remove_fields"
+    = f.input :_destroy, as: :hidden
