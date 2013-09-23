@@ -15,3 +15,6 @@ jQuery ->
     regexp = new RegExp($(this).data('id'), 'g')
     $(this).before($(this).data('fields').replace(regexp, time))
     event.preventDefault()
+$ ->
+  $('.naics-typeahead').typeahead({name: 'naics', local: gon.naics_codes, limit: 200 })
+

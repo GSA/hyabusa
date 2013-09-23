@@ -29,6 +29,8 @@ gem 'slim'
 gem 'omniauth-myusa', :git => 'https://github.com/GSA-OCSIT/omniauth-myusa.git' # :path => '~/code/gems/omniauth-myusa'
 gem 'google-analytics-rails'
 gem 'httparty'
+gem 'twitter-typeahead-rails'
+gem 'gon'
 
 group :development do
   gem 'better_errors'

@@ -17,6 +17,8 @@ class ProfilesController < ApplicationController
       redirect_to edit_profile_path and return
     else
       @profile = Profile.new(permitted_params || {})
+      @naics_codes = formatted_naics
+      gon.naics_codes = @naics_codes
     end
   end
 
@@ -36,6 +38,8 @@ class ProfilesController < ApplicationController
       redirect_to new_profile_path, notice: 'Create a profile to get started!' and return
     else
       @profile = current_user.profile
+      @naics_codes = formatted_naics
+      gon.naics_codes = @naics_codes
     end
   end
 
@@ -55,6 +59,10 @@ class ProfilesController < ApplicationController
   end
 
   private
+
+  def formatted_naics
+    NAICS_CODES.map{|x| x['title']}
+  end
 
   def permitted_params
     params.permit(
