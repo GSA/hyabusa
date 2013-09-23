@@ -2,7 +2,7 @@ class ProfilesController < ApplicationController
 
   def show
     unless @profile = current_user.profile
-      redirect_to new_profile_path, notice: 'You must create a profile.'
+      redirect_to new_profile_path, notice: 'Create a profile to get started!' and return
     end
 
     respond_to do |format|
@@ -14,7 +14,7 @@ class ProfilesController < ApplicationController
 
   def new
     if current_user.profile
-      redirect_to edit_profile_path
+      redirect_to edit_profile_path and return
     else
       @profile = Profile.new(permitted_params || {})
     end
@@ -32,7 +32,11 @@ class ProfilesController < ApplicationController
   end
 
   def edit
-    @profile = current_user.profile
+    unless current_user.profile
+      redirect_to new_profile_path, notice: 'Create a profile to get started!' and return
+    else
+      @profile = current_user.profile
+    end
   end
 
   def update

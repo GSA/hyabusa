@@ -17,4 +17,12 @@ class Profile < ActiveRecord::Base
   validates :org_type, inclusion: { in: ORGANIZATION_TYPES, message: "%{value} is not a valid organization type"}
   validates :state, inclusion: { in: US_STATES.map{|k,v| k}, message: '%{value} is not a valid US State'}
 
+  def entity_type_name
+    unless self.entity_type.nil?
+      return self.entity_type.name
+    else
+      return ''
+    end
+  end
+
 end
