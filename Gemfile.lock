@@ -32,9 +32,8 @@ GIT
     responders (1.0.0)
       railties (>= 3.2, < 5)
 
-GIT
-  remote: https://github.com/GSA-OCSIT/omniauth-myusa.git
-  revision: 23088060156f7492dfc3ac1683652ed4a656f8fc
+PATH
+  remote: ~/code/gems/omniauth-myusa
   specs:
     omniauth-myusa (0.0.3)
       omniauth (~> 1.0)
@@ -91,6 +90,10 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    carrierwave (0.9.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
     coderay (1.0.9)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -364,6 +367,7 @@ DEPENDENCIES
   bootstrap-sass
   cancan
   capybara
+  carrierwave
   coffee-rails (~> 4.0.0)
   countries
   country_select

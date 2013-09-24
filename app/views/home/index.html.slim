@@ -1,45 +1,42 @@
-- if user_signed_in?
+- if user_signed_in? and @profile.persisted?
+	= render 'profiles/detail'
+- elsif !@profile.persisted? # No profile, display marketing text
 	.row
 		.span12
-			h2
-				| Relevant to me
-			ul.home-tiles
-				li
-					= link_to image_tag('find-opportunities.gif', alt: 'Find Opportunities'), :find_opportunities
-				li
-					= link_to image_tag('start-a-business.gif', alt: 'Start a Business'), 'http://business.usa.gov/start-a-business'
-				li
-					= link_to image_tag('invest-in-the-usa.gif', alt: 'Invest in the USA'), 'http://business.usa.gov/select-usa'
-			br clear="both"
-			hr
-.row
-	.span12
-		h2
-			| Explore BusinessUSA
-		ul.home-tiles
-			- if !user_signed_in?
-				li
-					= link_to image_tag('start-a-business.gif'), 'http://business.usa.gov/start-a-business'
-			li
-				= link_to image_tag('access-financing.gif'), 'http://business.usa.gov/access-financing'
-			li
-				= link_to image_tag('begin-exporting.gif'), 'http://business.usa.gov/begin-exporting'
-			li
-				= link_to image_tag('browse-resources-for-veterans.gif'), 'http://business.usa.gov/veterans'
-			li
-				= link_to image_tag('expand-exporting.gif'), 'http://business.usa.gov/expand-exporting'
-			li
-				= link_to image_tag('begin-exporting.gif'), 'http://business.usa.gov/begin-exporting'
-			- if !user_signed_in?
-				li
-					= link_to image_tag('find-opportunities.gif'), 'http://business.usa.gov/find-opportunities'
-				li
-					= link_to image_tag('invest-in-the-usa.gif'), 'http://business.usa.gov/select-usa'
-			li
-				= link_to image_tag('grow-your-business.gif'), 'http://business.usa.gov/grow-your-business'
-			li
-				= link_to image_tag('help-with-hiring-employes.gif'), 'http://business.usa.gov/jobcenter-wizard'
-			li
-				= link_to image_tag('learn-about-new-healthcare-changes.gif'), 'http://business.usa.gov/healthcare'
-			li
-				= link_to image_tag('seek-disaster-assistance.gif'), 'http://business.usa.gov/disaster-assistance'
+			.full-login-box
+				.login
+					h2 
+						| Start your BusinessUSA profile...
+					ul
+						li
+							| Create a business profile and share it only when <strong>you</strong> want
+						li
+							| Get personalized search results, tailored to your business
+						li
+							| Find and submit grant applications <strong>online</strong>
+						li
+							| New <a href="#">features and services</a> coming soon...
+					p
+						= link_to("Start my profile", new_profile_path)
+
+- else
+	.row
+		.span12
+			.full-login-box
+				.login
+					h2 
+						| Unleash the power of BusinessUSA...
+					ul
+						li
+							| Create a business profile and share it only when <strong>you</strong> want
+						li
+							| Get personalized search results, tailored to your business
+						li
+							| Find and submit grant applications <strong>online</strong>
+						li
+							| New <a href="#">features and services</a> coming soon...
+					p
+						a href="#{signin_path}" class="login-shield"
+							= image_tag('shield.png')
+							span
+								| Log in with MyUSA

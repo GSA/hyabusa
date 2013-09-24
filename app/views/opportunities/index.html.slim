@@ -4,11 +4,15 @@
 			| Find Opportunities
 
 		ul
-		- @opportunities.each do |opp|
+		- if @opportunities.any?
+			- @opportunities.each do |opp|
+				li
+					= link_to opp['name'], "/opportunities/mo/#{opp['url']}"
+					p
+						= opp['description']
+		- else
 			li
-				= link_to opp['name'], "/opportunities/mo/#{opp['url']}"
-				p
-					= opp['description']
+				| Sorry, no opportunities to show at this time.
 
 	// LIPSTICK ON THE PIG...
 	.span5

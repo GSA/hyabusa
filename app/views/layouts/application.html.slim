@@ -14,7 +14,7 @@ html
         <!--[if lt IE 9]>
         <script src="assets/javascripts/html5shiv.js"></script>
         <![endif]-->
-  body class=("#{controller_name} #{action_name}")
+  body class=("#{controller_name} #{action_name} #{user_signed_in? ? "user-signed-in" : ""}")
     #beta
     .navbar.navbar-static-top
       nav#header.navbar-inner

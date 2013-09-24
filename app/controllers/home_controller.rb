@@ -1,5 +1,9 @@
 class HomeController < ApplicationController
   def index
-    @users = User.all
+  	if user_signed_in?
+    	@profile = current_user.profile || Profile.new
+    else
+    	@profile = Profile.new
+    end
   end
 end
