@@ -32,8 +32,9 @@ GIT
     responders (1.0.0)
       railties (>= 3.2, < 5)
 
-PATH
-  remote: ~/code/gems/omniauth-myusa
+GIT
+  remote: https://github.com/GSA-OCSIT/omniauth-myusa.git
+  revision: 23088060156f7492dfc3ac1683652ed4a656f8fc
   specs:
     omniauth-myusa (0.0.3)
       omniauth (~> 1.0)
