@@ -16,5 +16,14 @@ jQuery ->
     $(this).before($(this).data('fields').replace(regexp, time))
     event.preventDefault()
 $ ->
-  $('.naics-typeahead').typeahead({name: 'naics', local: gon.naics_codes, limit: 200 })
+  $('.naics-typeahead').typeahead({
+    name: 'naics', 
+    local: gon.naics_codes, 
+    limit: 10000,
+    template: '
+      <p class="tt-option"><strong>{{name}}</strong> ({{value}})</p>
+      <p class="tt-description tt-option"><em>{{description}}</p>
+    ',
+    engine: Hogan
+  })
 
