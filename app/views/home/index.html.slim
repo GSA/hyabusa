@@ -1,6 +1,6 @@
 - if user_signed_in? and @profile.persisted?
 	= render 'profiles/detail'
-- elsif !@profile.persisted? # No profile, display marketing text
+- elsif user_signed_in? and !@profile.persisted? # No profile, display marketing text
 	.row
 		.span12
 			.full-login-box
