@@ -31,6 +31,7 @@ gem 'google-analytics-rails'
 gem 'httparty'
 gem 'twitter-typeahead-rails'
 gem 'gon'
+gem 'hogan_assets'
 
 group :development do
   gem 'better_errors'
@@ -48,7 +49,7 @@ group :development do
   gem 'rb-inotify', :require=>false
 end
 group :development, :test do
-  gem 'factory_girl_rails', :require => false
+  gem 'factory_girl_rails'
   gem 'rspec-rails'
   gem 'thin'
   gem 'pry'

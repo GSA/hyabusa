@@ -1,4 +1,5 @@
 class ProfilesController < ApplicationController
+  include ApplicationHelper
 
   def show
     unless @profile = current_user.profile
@@ -17,8 +18,7 @@ class ProfilesController < ApplicationController
       redirect_to edit_profile_path and return
     else
       @profile = Profile.new(permitted_params || {})
-      @naics_codes = formatted_naics
-      gon.naics_codes = @naics_codes
+      gon.naics_codes = formatted_naics
     end
   end
 
@@ -38,8 +38,7 @@ class ProfilesController < ApplicationController
       redirect_to new_profile_path, notice: 'Create a profile to get started!' and return
     else
       @profile = current_user.profile
-      @naics_codes = formatted_naics
-      gon.naics_codes = @naics_codes
+      gon.naics_codes = formatted_naics
     end
   end
 
@@ -61,7 +60,7 @@ class ProfilesController < ApplicationController
   private
 
   def formatted_naics
-    NAICS_CODES.map{|x| x['title']}
+    NAICS_CODES.map{|x| {name: x['title'], tokens: x['title'].split(/[ \-,.]/), value: x['code']}}
   end
 
   def permitted_params

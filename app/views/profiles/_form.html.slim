@@ -1,5 +1,3 @@
-/!= tag 'div', id: 'naics', data: { naics: escape_javascript(@naics_codes.to_json) }
-
 = simple_form_for @profile, url: profile_path, html: { class: 'form-horizontal' } do |f|
   = f.input :company_name, input_html: { style: 'width:  30em' }
   = f.input :address1, input_html: { style: 'width:  30em' }
