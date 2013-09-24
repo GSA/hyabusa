@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130905204605) do
+ActiveRecord::Schema.define(version: 20130918151109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,50 @@ ActiveRecord::Schema.define(version: 20130905204605) do
   add_index "active_admin_comments", ["author_type", "author_id"], name: "index_active_admin_comments_on_author_type_and_author_id", using: :btree
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
+
+  create_table "entity_types", force: true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.string   "supertype"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "profile_people", force: true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "title"
+    t.string   "phone_work"
+    t.string   "phone_mobile"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "profile_id"
+  end
+
+  create_table "profiles", force: true do |t|
+    t.integer  "entity_type_id"
+    t.integer  "num_employees"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "annual_revenue"
+    t.integer  "annual_sales"
+    t.string   "org_type"
+    t.string   "company_name"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "postal_code"
+    t.string   "country"
+    t.boolean  "currently_exporting"
+    t.integer  "naics_sector"
+    t.integer  "naics_code"
+    t.integer  "duns_no"
+    t.integer  "user_id"
+  end
+
+  add_index "profiles", ["entity_type_id"], name: "index_profiles_on_entity_type_id", using: :btree
 
   create_table "roles", force: true do |t|
     t.string   "name"

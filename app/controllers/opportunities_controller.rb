@@ -1,11 +1,11 @@
 class OpportunitiesController < ApplicationController
 	def index
-		@opportunities = HTTParty.get(ENV['MODUS_OPERANDI_HOME']+"/api/operations")
+		begin
+			@opportunities = HTTParty.get(ENV['MODUS_OPERANDI_HOME']+"/api/operations")
+		rescue
+			@opportunities = []
+			flash.now[:error] = 'The opportunities service is unreachable due to connectivity issues. Try again later.'
+		end
 	end
 
-	def show_mo
-		# @opportunity = HTTParty.get(ENV['MODUS_OPERANDI_HOME']+"/api/operations/#{params[:mo_id]}/map")
-		# render :json => @opportunity
-		
-	end
 end

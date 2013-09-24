@@ -4,16 +4,17 @@ html
     meta content="width=device-width, initial-scale=1.0" name="viewport" 
       title= content_for?(:title) ? yield(:title) : "BusinessUSA"
       meta content=(content_for?(:description) ? yield(:description) : "BusinessUSA") name="description" 
-        = stylesheet_link_tag "application", :media => "all"
+        = stylesheet_link_tag "application", media: "all"
         = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Bitter:400,700"
         = javascript_include_tag "application"
         = analytics_init if Rails.env.production?
         = csrf_meta_tags
+        = include_gon
         = yield(:head)
         <!--[if lt IE 9]>
         <script src="assets/javascripts/html5shiv.js"></script>
         <![endif]-->
-  body class=("#{controller_name} #{action_name}")
+  body class=("#{controller_name} #{action_name} #{user_signed_in? ? "user-signed-in" : ""}")
     #beta
     .navbar.navbar-static-top
       nav#header.navbar-inner

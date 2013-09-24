@@ -1,0 +1,27 @@
+/!= tag 'div', id: 'naics', data: { naics: escape_javascript(@naics_codes.to_json) }
+
+= simple_form_for @profile, url: profile_path, html: { class: 'form-horizontal' } do |f|
+  = f.input :company_name, input_html: { style: 'width:  30em' }
+  = f.input :address1, input_html: { style: 'width:  30em' }
+  = f.input :address2, input_html: { style: 'width:  30em' }
+  = f.input :city, input_html: {  }
+  = f.input :state, as: :select, collection: Profile::US_STATES.map{|k,v| [v['name'], k]}, input_html: {  }
+  = f.input :postal_code, input_html: { style: 'width: 10em' }
+  /!= f.input :country, as: :country, input_html: {  }
+  = f.association :entity_type
+  = f.input :num_employees, input_html: { style: 'width:  7em' }
+  = f.input :annual_revenue, input_html: { style: 'width:  10em' }
+  = f.input :annual_sales, input_html: { style: 'width:  10em' }
+  = f.input :org_type, as: :select, label: "Organization type", collection: Profile::ORGANIZATION_TYPES.map{|x| [x,x]}
+  = f.input :currently_exporting, input_html: {  }
+  = f.input :naics_code, as: :string, input_html: { class: 'naics-typeahead', autocomplete: 'off' }
+  = f.input :duns_no, input_html: {  }
+  = f.simple_fields_for :people do |builder|
+    = render "person_fields", f: builder
+
+  = link_to_add_fields "Add Contact", f, :people
+
+  .form-actions
+    = f.button :submit, input_html: { class: 'btn-primary' }
+
+

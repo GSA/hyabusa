@@ -1,12 +1,16 @@
 require 'api_constraints'
 
 Mybusa::Application.routes.draw do
-  ActiveAdmin.routes(self)
   root :to => "home#index"
 
+  ActiveAdmin.routes(self)
+
   resources :opportunities, :only => [:index, :show]
-  get '/opportunities/mo/:mo_id' => 'opportunities#show_mo'
   get 'find-opportunities', to: 'opportunities#index', as: :find_opportunities
+
+  resource :profile do
+    resources :profile_people, as: 'people'
+  end
 
   get '/auth/:provider/callback' => 'sessions#create'
   get '/signin' => 'sessions#new', :as => :signin

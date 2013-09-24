@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require_tree .
+ *= require bootstrap_and_overrides
 */
 
 .content {
@@ -44,6 +45,19 @@ body {
 			color: #4D4D4D;
 			top: 17px;
 		}
+	}
+	.avatar-link {
+		padding: 0 !important;
+		&:hover {
+			background: transparent !important;
+		}
+	}
+	.avatar {
+		margin-top: -28px;
+		border: 1px solid #444;
+		width: 48px;
+		height: 48px;
+
 	}
 	.brand {
 		background: image-url('my_busa.png');
@@ -246,3 +260,54 @@ h1, h2, h3, h4 {
 }
 
 .start-hidden { display: none; }
+
+.full-login-box {
+	background: image-url('blurred-profile.jpg') no-repeat top center;
+	background-size: 100%;
+	height: 320px;
+	padding: 100px 0;
+	.login {
+		width: 420px;
+		height: 320px;
+		margin: 0 auto;
+		box-shadow: 0 0 120px #545454;
+		padding: 20px 50px;
+		background: image-url('login-bg.png') repeat top left;
+		vertical-align: center;
+	}
+}
+.home.index .content {
+	background: #FFFFFF;
+	box-shadow: none;
+}
+.home.index.user-signed-in .content {
+	background: #eee;
+}
+.login {
+	p {
+		margin: 16px 0;
+	}
+	.login-shield {
+		background: #112136;
+		padding: 0;
+		display: block;
+		color: #FFFFFF;
+		width: 200px;
+		font-weight: bold;
+		margin-left: 120px;
+		border-top-right-radius: 10px;
+		border-bottom-right-radius: 10px;
+		&:hover {
+			color: #FFFFFF;
+			background: #1D6484;
+			text-decoration: none;
+		}
+		img {
+			margin: -3px 10px -1px -39px;
+		}
+		span {
+			
+		}
+	}	
+}
+

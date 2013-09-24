@@ -1,19 +1,42 @@
-- if user_signed_in?
+- if user_signed_in? and @profile.persisted?
+	= render 'profiles/detail'
+- elsif !@profile.persisted? # No profile, display marketing text
 	.row
 		.span12
-			h2
-				| my business profiles
-			br clear="both"
-			hr
-.row
-	.span12
-		h1
-			| Welcome
-		br
-		div.login
-			= link_to 'Login via MyUSA', signin_path
-		br clear="both"
-		p
-			| What if we displayed a blurred out version of the profile form behind a login box with MyUSA branding?
-		p 
-			| OR.. we auto-redirect to MyUSA login and redirect to referrer (or display profile)
+			.full-login-box
+				.login
+					h2 
+						| Start your BusinessUSA profile...
+					ul
+						li
+							| Create a business profile and share it only when <strong>you</strong> want
+						li
+							| Get personalized search results, tailored to your business
+						li
+							| Find and submit grant applications <strong>online</strong>
+						li
+							| New <a href="#">features and services</a> coming soon...
+					p
+						= link_to("Start my profile", new_profile_path)
+
+- else
+	.row
+		.span12
+			.full-login-box
+				.login
+					h2 
+						| Unleash the power of BusinessUSA...
+					ul
+						li
+							| Create a business profile and share it only when <strong>you</strong> want
+						li
+							| Get personalized search results, tailored to your business
+						li
+							| Find and submit grant applications <strong>online</strong>
+						li
+							| New <a href="#">features and services</a> coming soon...
+					p
+						a href="#{signin_path}" class="login-shield"
+							= image_tag('shield.png')
+							span
+								| Log in with MyUSA

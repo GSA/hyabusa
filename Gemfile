@@ -14,8 +14,11 @@ gem 'responders',          github: 'plataformatec/responders'
 gem 'inherited_resources', github: 'josevalim/inherited_resources'
 gem 'ransack'
 gem 'activeadmin',         github: 'gregbell/active_admin',         branch: 'rails4'
-gem 'formtastic',          github: 'justinfrench/formtastic'
+gem 'country_select'
+gem 'countries'
 
+gem 'show_for'
+gem 'carrierwave'
 gem 'cancan'
 gem 'figaro'
 gem 'omniauth'
@@ -23,9 +26,11 @@ gem 'omniauth-google-oauth2'
 gem 'rolify'
 gem 'simple_form', '>= 3.0.0.rc'
 gem 'slim'
-gem 'omniauth-myusa', :git => 'https://github.com/GSA-OCSIT/omniauth-myusa.git' # :path => '~/code/gems/omniauth-myusa'
+gem 'omniauth-myusa', :path => '~/code/gems/omniauth-myusa' # :git => 'https://github.com/GSA-OCSIT/omniauth-myusa.git' 
 gem 'google-analytics-rails'
 gem 'httparty'
+gem 'twitter-typeahead-rails'
+gem 'gon'
 
 group :development do
   gem 'better_errors'
@@ -43,7 +48,7 @@ group :development do
   gem 'rb-inotify', :require=>false
 end
 group :development, :test do
-  gem 'factory_girl_rails'
+  gem 'factory_girl_rails', :require => false
   gem 'rspec-rails'
   gem 'thin'
   gem 'pry'
@@ -58,7 +63,7 @@ group :production do
 end
 group :test do
   gem 'capybara'
-  gem 'database_cleaner'
+  gem 'database_cleaner', '1.0.1'
   gem 'email_spec'
   gem 'simplecov', :require => false
 end

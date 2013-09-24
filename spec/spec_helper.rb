@@ -6,6 +6,7 @@ require 'rspec/rails'
 require 'email_spec'
 #require 'rspec/autorun'
 require 'simplecov'
+require 'factory_girl_rails'
 SimpleCov.start 'rails'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
@@ -43,7 +44,7 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
-  
+
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
   end
@@ -62,18 +63,3 @@ Capybara.configure do |config|
   config.server_port = 3002
 end
 
-OmniAuth.config.test_mode = true
-OmniAuth.config.add_mock(:myusa, {
-  :info => {
-    :email => 'joe@citizen.org',
-    :uid => '12345'
-  },
-  :uid => '12345',
-  :credentials => {
-    :token => 'foobar123',
-  }
-})
-
-def login_with_myusa
-  visit '/auth/myusa'
-end
