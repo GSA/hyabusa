@@ -13,3 +13,7 @@ OmniAuth.config.add_mock(:myusa, {
 def login_with_myusa
   visit '/auth/myusa'
 end
+
+def current_user
+	User.where(:provider => :myusa, :uid => '12345').first
+end
