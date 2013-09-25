@@ -46,3 +46,9 @@ describe "Profile", :type => :feature do
     end
   end
 end
+
+describe "BizUSAJSONStore", type: :feature do
+  it "should return JSON store when requested" do
+    pending
+  end
+end

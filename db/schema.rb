@@ -11,11 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130918151109) do
+ActiveRecord::Schema.define(version: 20130924152601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-  enable_extension "hstore"
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -72,6 +71,7 @@ ActiveRecord::Schema.define(version: 20130918151109) do
     t.integer  "naics_code"
     t.integer  "duns_no"
     t.integer  "user_id"
+    t.json     "biz_usa_store"
   end
 
   add_index "profiles", ["entity_type_id"], name: "index_profiles_on_entity_type_id", using: :btree

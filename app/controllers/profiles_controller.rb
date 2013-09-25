@@ -8,8 +8,8 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.xml  { render xml: @profile, include: :people }
-      format.json { render json: @profile, include: :people }
+      format.xml  { render xml: @profile, include: :people, exclude: :biz_usa_store }
+      format.json { render json: @profile, include: :people, exclude: :biz_usa_store }
     end
   end
 
