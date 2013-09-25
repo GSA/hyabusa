@@ -20,10 +20,7 @@ $ ->
     name: 'naics', 
     local: gon.naics_codes, 
     limit: 10000,
-    template: '
-      <p class="tt-option"><strong>{{name}}</strong> ({{value}})</p>
-      <p class="tt-description tt-option"><em>{{description}}</p>
-    ',
+    template: '<p class="tt-option"><strong>{{name}}</strong> ({{value}})</p>',
     engine: Hogan
   })
 
