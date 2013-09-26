@@ -49,6 +49,6 @@ end
 
 describe "BizUSAJSONStore", type: :feature do
   it "should return JSON store when requested" do
-    pending
+    pending("Hey, change this column back to type json once Travis adds support for Postgresql 9.2!")
   end
 end
