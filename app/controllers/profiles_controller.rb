@@ -67,9 +67,6 @@ class ProfilesController < ApplicationController
     params.permit(
       :profile => [
         :profile_id,
-        :contact_first_name,
-        :contact_last_name,
-        :contact_email,
         :entity_type_id,
         :num_employees,
         :annual_revenue,
@@ -85,6 +82,7 @@ class ProfilesController < ApplicationController
         :naics_sector,
         :naics_code,
         :duns_no,
+        :biz_usa_store,
         :people_attributes => [
           :id,
           :first_name,
