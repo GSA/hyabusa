@@ -4,9 +4,8 @@ after_failure:
   - echo $RAILS_ENV
   - bundle exec rake --version
   - ruby env
-before_script:
-  - cp config/database.travis.yml config/database.yml
-  - psql -c 'create database hyabusa_test' -U postgres
+env:
+  - DATABASE_URL=$(curl http://api.postgression.com)
 install:
   - bundle install --without development
 language: ruby
