@@ -21,7 +21,9 @@ class SessionsController < ApplicationController
     session[:token] = auth.credentials.token
     user.add_role :super_admin if User.count == 1 # make the first user an admin
     if user.email.blank?
-      redirect_to edit_user_path(user), :alert => "Please enter your email address."
+      redirect_to edit_admin_user_path(user), :alert => "Please enter your email address."
+    elsif user.has_gov_email? && user.agency.blank?
+      redirect_to edit_admin_user_path(user), :alert => "Please choose your agency or parent agency from the dropdown."
     else
       redirect_to root_url, :notice => 'Signed in!'
     end
