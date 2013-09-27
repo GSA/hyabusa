@@ -7,10 +7,10 @@
           = link_to "(edit)", edit_profile_path
 
   .row.span10
-    table.table.table-striped.span8
+    table.table.table-striped.span10
       tbody
         tr
-          th Company name
+          th.span3 Company name
           td
             = @profile.company_name
         tr
@@ -38,33 +38,45 @@
           td
             = @profile.country
         tr
-          th Entity Type
+          th Phone
           td
-            = @profile.entity_type_name
+            = @profile.phone_number
+        tr
+          th Fax
+          td
+            = @profile.fax_number
+        tr
+          th Website URL
+          td
+            = @profile.website_url
         tr
           th Number of Employees
           td
             = @profile.num_employees
         tr
-          th Annual Revenue
+          th Annual Export Sales
           td
-            = @profile.annual_revenue
+            = @profile.annual_export_sales
         tr
-          th Annual Sales
-          td
-            = @profile.annual_sales
-        tr
-          th Organization Type
-          td
-            = @profile.org_type
-        tr
-          th Currently Exporting
+          th Currently Exporting?
           td
             = @profile.currently_exporting
         tr
-          th NAICS Sector
+          th Percentage of sales from exports
           td
-            = @profile.naics_sector
+            = @profile.percent_export_sales
+        tr
+          th Export Status
+          td
+            = @profile.export_status
+        tr
+          th I authorize Export.gov to share our company and product information with other Trade Promotion Agencies of the U.S. Government. 
+          td
+            = @profile.auth_export_gov_to_share
+        tr
+          th I authorize Trade Promotion Agencies to contact me.
+          td
+            = @profile.auth_trade_promo_contact
         tr
           th NAICS Code
           td
@@ -72,7 +84,7 @@
         tr
           th DUNS Number
           td
-            = @profile.duns_no
+            = @profile.dunn_bradstreet
 
   .row.span10
     .page-header
