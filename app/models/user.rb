@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   rolify
 
   validates_presence_of :name
+  validates_uniqueness_of :email
+  validates_uniqueness_of :uid
 
   after_create :add_roles
 
