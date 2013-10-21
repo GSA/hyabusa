@@ -17,6 +17,9 @@ gem 'activeadmin',         github: 'gregbell/active_admin',         branch: 'rai
 gem 'country_select'
 gem 'countries'
 
+gem 'formtastic'
+gem 'formtastic-bootstrap', github: 'mjbellantoni/formtastic-bootstrap'
+
 gem 'show_for'
 gem 'carrierwave'
 gem 'memcachier'
