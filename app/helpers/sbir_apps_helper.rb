@@ -18,17 +18,13 @@ module SbirAppsHelper
   end
 
   def formtastic_field_type(field)
-    case field[:field_type]
+    case field['field_type']
     when "date"
-      "date_picker"
-    when "date_select"
-      "date_picker"
-    when "time"
-      "time_select"
+      "date_select"
     when "datetime"
       "datetime_select"
     else
-      field[:field_type]
+      field['field_type']
     end
   end
 end
