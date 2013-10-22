@@ -8,20 +8,17 @@ container
   p
     | So down here, we will iterate through the form fields and create input fields to fill out the form.
 
-  javascript:
-    var myUsaFormTooltips = #{@form['form_fields'].map{|x| x[:name]}.to_json}
-
-  p
+  .span8
     = semantic_form_for "data", url: sbir_path, class: 'form-horizontal'  do |f|
       = f.inputs do
-        = f.input :form_id, :as => :hidden, :input_html => { :value => @form[:id] }
+        = f.input :form_id, :as => :hidden, :input_html => { :value => @form['id'] }
         - @form['form_fields'].each do |form_field|
           = form_input(f, form_field)
 
       = f.actions do
         = f.action :submit, :as => :button, :label => "Submit Form"
   - if @form['omb_control_number']
-    p#omb
+    p#omb.span8
       small.right
         = omb_info(@form)
 
