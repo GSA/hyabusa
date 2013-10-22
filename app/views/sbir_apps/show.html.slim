@@ -8,7 +8,7 @@ container
   p
     | So down here, we will iterate through the form fields and create input fields to fill out the form.
 
-  .span8
+  .col-md-8
     = semantic_form_for "data", url: sbir_path, class: 'form-horizontal'  do |f|
       = f.inputs do
         = f.input :form_id, :as => :hidden, :input_html => { :value => @form['id'] }
@@ -18,7 +18,7 @@ container
       = f.actions do
         = f.action :submit, :as => :button, :label => "Submit Form"
   - if @form['omb_control_number']
-    p#omb.span8
+    p#omb.col-md-8
       small.right
         = omb_info(@form)
 

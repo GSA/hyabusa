@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.tooltip
-//= require bootstrap
+//= require twitter/bootstrap
 //= require turbolinks
 //= require hogan.js
 //= require_tree .

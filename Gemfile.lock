@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/anjlab/bootstrap-rails.git
+  revision: 8826a3bfbbcfb18709f0e8bb0eff9cf921a479c3
+  specs:
+    anjlab-bootstrap-rails (3.0.0.3)
+      railties (>= 3.0)
+      sass (>= 3.2)
+
+GIT
   remote: git://github.com/gregbell/active_admin.git
   revision: 85b9f816480988bf00aa142c9638b5212b51113a
   branch: rails4
@@ -26,8 +34,8 @@ GIT
       responders (~> 1.0.0.rc)
 
 GIT
-  remote: git://github.com/mjbellantoni/formtastic-bootstrap.git
-  revision: 95fed68e39fe2fc4b55256b077dd8fb5b36471f3
+  remote: git://github.com/nickl-/formtastic-bootstrap3.git
+  revision: 136c3bc0269014d28acd8da9b93d49ae4e1caf1e
   specs:
     formtastic-bootstrap (2.1.3)
       formtastic (~> 2.2)
@@ -376,6 +384,7 @@ PLATFORMS
 
 DEPENDENCIES
   activeadmin!
+  anjlab-bootstrap-rails!
   better_errors
   binding_of_caller
   bootstrap-sass

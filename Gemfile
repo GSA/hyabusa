@@ -7,6 +7,8 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
+gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
+                              :github => 'anjlab/bootstrap-rails'
 gem 'bootstrap-sass'
 
 gem 'devise'
@@ -18,7 +20,7 @@ gem 'country_select'
 gem 'countries'
 
 gem 'formtastic'
-gem 'formtastic-bootstrap', github: 'mjbellantoni/formtastic-bootstrap'
+gem 'formtastic-bootstrap', github: 'nickl-/formtastic-bootstrap3'
 
 gem 'show_for'
 gem 'carrierwave'
