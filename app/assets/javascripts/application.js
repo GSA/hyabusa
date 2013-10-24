@@ -17,3 +17,4 @@
 //= require hogan.js
 //= require_tree .
 //= require twitter/typeahead
+//= require cocoon

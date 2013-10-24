@@ -16,6 +16,7 @@ gem 'ransack'
 gem 'activeadmin',         github: 'gregbell/active_admin',         branch: 'rails4'
 gem 'country_select'
 gem 'countries'
+gem 'cocoon'
 
 gem 'show_for'
 gem 'carrierwave'
