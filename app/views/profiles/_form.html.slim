@@ -22,11 +22,15 @@
   = f.input :export_type, as: :radio_buttons, label: "Do you certify that you are, your company is, or the entity you/your company represents is, exporting, or seeking to export:", collection: Profile::EXPORT_TYPE
   = f.input :org_type, as: :select, label: "Organization type", collection: Profile::ORGANIZATION_TYPES.map{|x| [x,x]}
   = f.input :naics_code, as: :string, label: "NAICS Code", hint: '<em>See <a href="http://www.census.gov/eos/www/naics/">North American Industry Classification System</a> at Census.gov</em>', input_html: { class: 'naics-typeahead', autocomplete: 'off' }
-  = f.input :dunn_bradstreet, label: "Dunn & Bradstreet No.", hint: '<em>See <a href="https://iupdate.dnb.com/iUpdate/companylookup.htm">D&B iUpdate</a> if you don\'t know it or don\'t have one.'
-  = f.simple_fields_for :people do |builder|
-    = render "person_fields", f: builder
+  = f.input :dunn_bradstreet, label: "Dunn & Bradstreet No.", hint: '<em>See <a href="https://iupdate.dnb.com/iUpdate/companylookup.htm">D&B iUpdate</a> if you don\'t know it or don\'t have one.</em>'
 
-  = link_to_add_fields "Add Contact", f, :people
+  h3
+    | Company Contacts
+  #people
+    = f.simple_fields_for :people do |person|
+      = render "person_fields", f: person
+    .links
+      = link_to_add_association 'Add Person', f, :people
 
   .form-actions
     = f.button :submit, input_html: { class: 'btn-primary' }

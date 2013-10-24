@@ -18,6 +18,7 @@ gem 'ransack'
 gem 'activeadmin',         github: 'gregbell/active_admin',         branch: 'rails4'
 gem 'country_select'
 gem 'countries'
+gem 'cocoon'
 
 gem 'formtastic'
 gem 'formtastic-bootstrap', github: 'nickl-/formtastic-bootstrap3'

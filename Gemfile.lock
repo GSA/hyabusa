@@ -110,6 +110,7 @@ GEM
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
       json (>= 1.7)
+    cocoon (1.2.1)
     coderay (1.0.9)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -391,6 +392,7 @@ DEPENDENCIES
   cancan
   capybara
   carrierwave
+  cocoon
   coffee-rails (~> 4.0.0)
   countries
   country_select
