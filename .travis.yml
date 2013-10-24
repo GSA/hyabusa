@@ -1,5 +1,5 @@
 after_failure:
-  - mysql -e 'show databases;'
+  - echo $DATABASE_URL
   - cat ./config/database.yml
   - echo $RAILS_ENV
   - bundle exec rake --version
@@ -14,11 +14,6 @@ notifications:
     recipients:
       - alison.rowland@gsa.gov
       - john.stone@gsa.gov
-      - gregory.gershman@gsa.gov
-      - john.felleman@gsa.gov
-      - john.kemp@gsa.gov
-      - justin.grevich@gsa.gov
-      - raphael.villas@gsa.gov
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
   - bundle exec rake db:test:prepare
