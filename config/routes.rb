@@ -10,7 +10,7 @@ Mybusa::Application.routes.draw do
     resources :profile_people, as: 'people'
   end
 
-  get 'sbir', to: 'sbir_apps#show', as: :sbir
+  resources :sbir_apps
 
   get '/auth/:provider/callback' => 'sessions#create'
   get '/signin' => 'sessions#new', :as => :signin
