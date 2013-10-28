@@ -57,4 +57,16 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, :alert => exception.message
   end
 
+  def oauthorize_request
+    response = HTTParty.get("#{ENV['MYUSA_HOME']}/api/verify_credentials",
+        :query => '',
+        :headers => { "HTTP_AUTHORIZATION" => request.headers['HTTP_AUTHORIZATION']}
+      )
+    binding.pry
+    if @current_user = User.find_by_uid(response)
+      return true
+    else
+      raise Exception
+    end
+  end
 end

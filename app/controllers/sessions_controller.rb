@@ -4,6 +4,8 @@ class SessionsController < ApplicationController
   # before_filter :setup_myusa_access_token
 
   def new
+    # check for URL parameter
+    # set cookie
     redirect_to '/auth/myusa'
   end
 
@@ -18,6 +20,7 @@ class SessionsController < ApplicationController
     reset_session
     session[:user_id] = user.id
     session[:token] = auth.credentials.token
+    # redirect user to application with URL parameters ?uid=1234&token=0000
     user.add_role :super_admin if User.count == 1 # make the first user an admin
     if user.email.blank?
       redirect_to edit_user_path(user), :alert => "Please enter your email address."

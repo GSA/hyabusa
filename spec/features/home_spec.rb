@@ -8,7 +8,7 @@ describe "Home", :type => :feature do
 
   context "when a user is logged in" do
 
-    it "show the user's business profile" dora
+    it "show the user's business profile" do
       login_with_myusa
       profile = Profile.new(@profile_attrs)
       profile.user = current_user

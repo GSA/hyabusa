@@ -18,10 +18,10 @@ Mybusa::Application.routes.draw do
   get '/auth/failure' => 'sessions#failure'
 
   # API
-   namespace :api, :defaults => {:format => :json} do
+  namespace :api, :defaults => {:format => :json} do
     scope :module => :v1, :constraints => ApiConstraints.new(:version => 1, :default => true) do
-    	get '/' => 'base#index'
-      resource :profile, :only => [:show]
+    	get '/index' => 'base#index'
+      resources :profiles
     end
   end
 end

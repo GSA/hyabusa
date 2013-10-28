@@ -32,6 +32,7 @@ gem 'httparty'
 gem 'twitter-typeahead-rails'
 gem 'gon'
 gem 'hogan_assets'
+gem 'swagger-docs'
 
 group :development do
   gem 'better_errors'
@@ -56,6 +57,7 @@ group :development, :test do
   gem 'pry-nav'
   gem 'zeus'
   gem 'sqlite3'
+  gem 'webmock'
 end
 group :production do
   gem 'unicorn'
