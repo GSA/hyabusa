@@ -12,8 +12,9 @@ class SessionsController < ApplicationController
 
   def create
     auth = request.env["omniauth.auth"]
-    user = User.where(:provider => auth['provider'], 
-                      :uid => auth['uid'].to_s).first || User.create_with_omniauth(auth)
+    user = User.where(provider: auth['provider'], uid: auth['uid'].to_s).first ||
+      User.where(provider: auth['provider'], email: auth['email']).first ||
+      User.create_with_omniauth(auth)
     # Reset the session after successful login, per
     # 2.8 Session Fixation – Countermeasures:
     # http://guides.rubyonrails.org/security.html#session-fixation-countermeasures
@@ -23,7 +24,9 @@ class SessionsController < ApplicationController
     # redirect user to application with URL parameters ?uid=1234&token=0000
     user.add_role :super_admin if User.count == 1 # make the first user an admin
     if user.email.blank?
-      redirect_to edit_user_path(user), :alert => "Please enter your email address."
+      redirect_to edit_admin_user_path(user), :alert => "Please enter your email address."
+    elsif user.has_gov_email? && user.agency.blank?
+      redirect_to edit_admin_user_path(user), :alert => "Please choose your agency or parent agency from the dropdown."
     else
       redirect_to root_url, :notice => 'Signed in!'
     end

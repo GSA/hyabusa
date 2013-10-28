@@ -6,18 +6,31 @@
   = f.input :state, as: :select, collection: Profile::US_STATES.map{|k,v| [v['name'], k]}, input_html: {  }
   = f.input :postal_code, input_html: { style: 'width: 10em' }
   /!= f.input :country, as: :country, input_html: {  }
-  = f.association :entity_type
+  = f.input :phone_number
+  = f.input :fax_number, as: :tel
+  = f.input :website_url
   = f.input :num_employees, input_html: { style: 'width:  7em' }
-  = f.input :annual_revenue, input_html: { style: 'width:  10em' }
-  = f.input :annual_sales, input_html: { style: 'width:  10em' }
+  = f.input :annual_export_sales, input_html: { style: 'width:  10em' }
+  = f.input :currently_exporting, as: :radio_buttons, label: "Are you currently exporting?"
+  = f.input :percent_export_sales, as: :select, collection: ['Less than 5%', '5% - 9%', '10% - 19%', '20% - 29%', '30% or More', 'Uncertain']
+  = f.input :export_status, as: :select, collection: ['', 'Learn', 'Ready', 'Expand']
+  = f.input :auth_export_gov_to_share, as: :radio_buttons, label: "I authorize Export.gov to share our company and product information with other Trade Promotion Agencies of the U.S. Government."
+  = f.input :auth_trade_promo_contact, as: :radio_buttons, label: "I authorize Trade Promotion Agencies to contact me."
+  = f.input :responsible_person_intl, as: :radio_buttons, label: "Are you the person responsible for your company's international business sales and/or development?"
+  = f.input :documented_product_sales_dist_auth, as: :radio_buttons, label: "Does your firm have documented sales or distribution authorization for the product (i.e. are you the manufacturer or do you have the manufacturer's written permission)?"
+  = f.association :entity_type, as: :radio_buttons, label: "Are you, your company or the company you/your company represents:"
+  = f.input :export_type, as: :radio_buttons, label: "Do you certify that you are, your company is, or the entity you/your company represents is, exporting, or seeking to export:", collection: Profile::EXPORT_TYPE
   = f.input :org_type, as: :select, label: "Organization type", collection: Profile::ORGANIZATION_TYPES.map{|x| [x,x]}
-  = f.input :currently_exporting, input_html: {  }
-  = f.input :naics_code, as: :string, input_html: { class: 'naics-typeahead', autocomplete: 'off' }
-  = f.input :duns_no, input_html: {  }
-  = f.simple_fields_for :people do |builder|
-    = render "person_fields", f: builder
+  = f.input :naics_code, as: :string, label: "NAICS Code", hint: '<em>See <a href="http://www.census.gov/eos/www/naics/">North American Industry Classification System</a> at Census.gov</em>', input_html: { class: 'naics-typeahead', autocomplete: 'off' }
+  = f.input :dunn_bradstreet, label: "Dunn & Bradstreet No.", hint: '<em>See <a href="https://iupdate.dnb.com/iUpdate/companylookup.htm">D&B iUpdate</a> if you don\'t know it or don\'t have one.</em>'
 
-  = link_to_add_fields "Add Contact", f, :people
+  h3
+    | Company Contacts
+  #people
+    = f.simple_fields_for :people do |person|
+      = render "person_fields", f: person
+    .links
+      = link_to_add_association 'Add Person', f, :people
 
   .form-actions
     = f.button :submit, input_html: { class: 'btn-primary' }

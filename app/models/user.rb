@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   rolify
 
   validates_presence_of :name
+  validates_uniqueness_of :email
+  validates_uniqueness_of :uid
 
   after_create :add_roles
 
@@ -18,9 +20,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def has_gov_email?
+    return %w{ .gov .mil }.any? {|x| self.email.end_with?(x)}
+  end
+
   def add_roles
     self.add_role :admin if User.count == 1 # make the first user an admin
 
-    self.add_role :agency if %w{ .gov .mil }.any? {|d| self.email.end_with?(d)}
+    self.add_role :agency if self.has_gov_email?
   end
+
 end
