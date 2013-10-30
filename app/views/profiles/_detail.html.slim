@@ -101,6 +101,8 @@
           th Last Name
           th Title
           th Email
+          th Phone (Work)
+          th Phone (Mobile)
       tbody
         - for person in @profile.people do
           tr
@@ -112,4 +114,8 @@
               = person.title
             td
               = person.email
+            td
+              = person.phone_work
+            td
+              = person.phone_mobile
       

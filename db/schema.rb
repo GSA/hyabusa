@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130926153731) do
+ActiveRecord::Schema.define(version: 20131024211602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,8 +56,7 @@ ActiveRecord::Schema.define(version: 20130926153731) do
     t.integer  "num_employees"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "annual_revenue"
-    t.integer  "annual_sales"
+    t.integer  "annual_export_sales"
     t.string   "org_type"
     t.string   "company_name"
     t.string   "address1"
@@ -69,15 +68,12 @@ ActiveRecord::Schema.define(version: 20130926153731) do
     t.boolean  "currently_exporting"
     t.integer  "naics_sector"
     t.integer  "naics_code"
-    t.integer  "duns_no"
     t.integer  "user_id"
     t.text     "biz_usa_store"
     t.string   "phone_number"
     t.string   "fax_number"
     t.string   "dunn_bradstreet"
-    t.string   "business_country"
-    t.string   "web_site"
-    t.string   "number_employees"
+    t.string   "website_url"
     t.string   "percent_export_sales"
     t.string   "export_status"
     t.boolean  "auth_export_gov_to_share"
