@@ -1,6 +1,5 @@
 class SbirSolicitationsController < ApplicationController
   require 'httparty'
-  skip_before_filter authenticate_user!
   #require 'ostruct'
 
   layout "sbir_solicitations"
