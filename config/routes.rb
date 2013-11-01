@@ -6,10 +6,7 @@ Mybusa::Application.routes.draw do
   resources :opportunities, :only => [:index, :show]
   get 'find-opportunities', to: 'opportunities#index', as: :find_opportunities
 
-  resources :sbir_solicitations do
-    get 'thank_you', on: :new
-  end
-
+  resources :sbir_solicitations
 
   resource :profile do
     resources :profile_people, as: 'people'

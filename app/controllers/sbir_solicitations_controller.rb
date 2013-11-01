@@ -1,13 +1,14 @@
 class SbirSolicitationsController < ApplicationController
   require 'httparty'
   #require 'ostruct'
+  include SbirSolicitationsHelper
 
   layout "sbir_solicitations"
 
   class FBOpenAPI
     include HTTParty
     debug_output $stdout
-    base_uri 'http://ec2-54-200-57-170.us-west-2.compute.amazonaws.com:3000'
+    base_uri [ENV['FBOPEN_URI'], ENV['FBOPEN_API_PORT']].join(':')
 
     def post(opts)
       options = opts.slice(:data_source, :solnbr, :listing_url, :title, :close_dt, :agency, :participating_organizations, :summary, :description, :open_dt, :posted_dt)
@@ -22,14 +23,16 @@ class SbirSolicitationsController < ApplicationController
     #response = OpenStruct.new(r)
 
     if response.parsed_response['status'] == "success"
-      redirect_to thank_you_new_sbir_solicitation_path
+      redirect_to sbir_solicitation_path(response.parsed_response['data']['id'])
     else
       flash[:error] = response.parsed_response['message']
       render 'new'
     end
   end
 
-  def thank_you
+  # thank you
+  def show
+    @fbopen_url = fbopen_listing_link(params[:id])
   end
 
 end
