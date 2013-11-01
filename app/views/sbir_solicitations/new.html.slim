@@ -14,7 +14,7 @@
         .col-md-1
 
     .container
-        h3 Solicitation Information:
+        h4 Solicitation Information:
 
         = form_tag sbir_solicitations_path, class: 'form-inline new-solicitation', role: 'form' do
         
@@ -50,13 +50,13 @@
             .row
                 .form-group.col-md-12
                     label[for="summary"]
-                        h3 Funding Objective:
+                        h4 Funding Objective:
                     textarea.form-control[name="summary" hint="Executive summary/synopsis of the project"] 
             .row
                 .form-group.col-md-12
                     label[for="description"]
-                        h3 Solicitation Description:
-                    textarea.form-control.col-md-12.description[name="description" hint="Full project description (and any other content)" rows="10"]
+                        h4 Solicitation Description:
+                    textarea.form-control.col-md-12.description[name="description" hint="Full project description (and any other content)" rows="30"]
             = submit_tag "Submit", class: "btn btn-primary"
     </div>
 </div>
