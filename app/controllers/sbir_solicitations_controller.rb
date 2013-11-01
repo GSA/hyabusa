@@ -23,7 +23,7 @@ class SbirSolicitationsController < ApplicationController
     #response = OpenStruct.new(r)
 
     if response.parsed_response['status'] == "success"
-      redirect_to sbir_solicitation_path(response.parsed_response['data']['id'])
+      redirect_to sbir_solicitation_path(response.parsed_response['data']['id'].split(":").last)
     else
       flash[:error] = response.parsed_response['message']
       render 'new'
