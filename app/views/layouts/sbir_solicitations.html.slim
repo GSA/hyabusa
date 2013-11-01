@@ -1,0 +1,37 @@
+doctype html
+html
+  head
+    meta content="width=device-width, initial-scale=1.0" name="viewport" 
+      title= content_for?(:title) ? yield(:title) : "BusinessUSA"
+      meta content=(content_for?(:description) ? yield(:description) : "BusinessUSA") name="description" 
+        = stylesheet_link_tag "application", media: "all"
+        = stylesheet_link_tag "https://fonts.googleapis.com/css?family=Bitter:400,700"
+        = javascript_include_tag "application"
+        = include_gon(init: true)
+        = analytics_init if Rails.env.production?
+        = csrf_meta_tags
+        = yield(:head)
+        <!--[if lt IE 9]>
+        <script src="assets/javascripts/html5shiv.js"></script>
+        <![endif]-->
+  body
+    .navbar.navbar-inverse.navbar-fixed-top
+      .container.droppedHover
+        .navbar-header
+          button.navbar-toggle[type="button" data-toggle="collapse" data-target=".navbar-collapse"]
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand[href="#"]
+            | FBOpen
+    #main role="main" 
+      .container
+        .row
+          .span12
+            = render 'layouts/messages'
+        .content
+          .row
+            .span12
+              = yield
+      /! ! end of .container
+    /! ! end of #main

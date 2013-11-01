@@ -1,0 +1,62 @@
+.container
+    <br />
+    <br />
+    .row
+        .col-md-1
+
+        .col-md-10.text-center
+            h1 Submit SBIR Solicitations
+            p.lead Submit SBIR Solicitations here using one, easy form.
+            p.lead
+                | Your opportunities will become easily searchable and have increased exposure on FBOpen. FBOpen**addlink** is a search tool that helps businesses find a wide variety 
+                of opportunities to do business with the federal government, including SBIR and the Federal open market.
+
+        .col-md-1
+
+    .container
+        h3 Solicitation Information:
+
+        = form_tag sbir_solicitations_path, class: 'form-inline new-solicitation', role: 'form' do
+        
+            input[type="hidden" name="data_source" value="SBIR"]
+            .row
+                .col-md-12.form-group
+                    label.sr-only[for="title"] Solicitation Title
+                    input.form-control[type="text" name="title" placeholder="Solicitation Title"]
+            .row
+                .col-md-7.form-group
+                    label.sr-only[for="agency"] Agency
+                    input.form-control[type="text" name="agency" hint="Title of solicitation" placeholder="Agency"]
+                .col-md-5.form-group
+                    label.sr-only[for="participating_organizations"] Participating Organizations
+                    input.form-control[type="text" name="participating_organizations" hint="A department or other organization within the agency, if applicable" placeholder="Participating Organizations"]
+            .row
+                .col-md-6.form-group
+                    label.sr-only[for="solnbr"] Solicitation Topic Number
+                    input.form-control[type="text" name="solnbr" placeholder="Solicitation Topic Number"]
+                .col-md-6.form-group
+                    label.sr-only[for="listing_url"] Listing URL
+                    input.form-control[type="text" name="listing_url" hint="Outbound link to the agency's page for this project." placeholder="Listing URL"]
+            .row
+                .col-md-4.form-group
+                    label[for="open_dt"] Open Date
+                    input.form-control[type="date" name="open_dt"]
+                .col-md-4.form-group
+                    label[for="close_dt"] Close Date
+                    input.form-control[type="date" name="close_dt"]
+                .col-md-4.form-group
+                    label[for="posted_dt"] Posted Date
+                    input.form-control[type="date" name="posted_dt"]
+            .row
+                .form-group.col-md-12
+                    label[for="summary"]
+                        h3 Funding Objective:
+                    textarea.form-control[name="summary" hint="Executive summary/synopsis of the project"] 
+            .row
+                .form-group.col-md-12
+                    label[for="description"]
+                        h3 Solicitation Description:
+                    textarea.form-control.col-md-12[name="description" hint="Full project description (and any other content)" rows="10"]
+            = submit_tag "Submit", class: "btn btn-primary"
+    </div>
+</div>
