@@ -19,3 +19,4 @@
 //= require_tree .
 //= require twitter/typeahead
 //= require cocoon
+//= require bootstrap-wysihtml5/b3

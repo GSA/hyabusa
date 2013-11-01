@@ -7,3 +7,5 @@ $(document).ready ->
     $("#new-solicitation").append xhr.responseText
   ).bind "ajax:error", (e, xhr, status, error) ->
     $("#new-solicitation").append "<p>ERROR</p>"
+
+  $('textarea.description').wysihtml5()
