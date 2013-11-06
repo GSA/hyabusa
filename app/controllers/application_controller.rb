@@ -58,15 +58,27 @@ class ApplicationController < ActionController::Base
   end
 
   def oauthorize_request
-    response = HTTParty.get("#{ENV['MYUSA_HOME']}/api/verify_credentials",
-        :query => '',
-        :headers => { "HTTP_AUTHORIZATION" => request.headers['HTTP_AUTHORIZATION']}
-      )
-    binding.pry
-    if @current_user = User.find_by_uid(response)
-      return true
-    else
-      raise Exception
+    # TODO!!! ACTUALLY AUTHORIZE REQUEST!!
+    begin
+      # unless token = request.headers['HTTP_AUTHORIZATION'].gsub!('Bearer ','')
+      #   render_oauth_error("No token provided")
+      # end
+
+      uid = params[:uid]
+      json = {}
+
+      unless @current_user = User.find_by_uid(uid)
+        render_oauth_error(json['message'] || "Unauthorized", 403)
+      end
+    rescue => e
+      render_oauth_error("Unauthorized")
+      logger.error "--- :oauthorize_request"
+      logger.error e
+      # raise Exception, e.message
     end
+  end
+
+  def render_oauth_error(message="", status=500)
+    render :json => { :error => true, :message => message }, :status => status
   end
 end

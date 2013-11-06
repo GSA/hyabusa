@@ -7,6 +7,8 @@
 # makes 'Your_Gmail_Username' available as ENV["GMAIL_USERNAME"]
 # Add application configuration variables here, as shown below.
 #
+HYABUSA_HOME: http://my.business.usa.gov # base URL for this application
+
 GMAIL_USERNAME: name
 GMAIL_PASSWORD: pass
 
@@ -17,6 +19,7 @@ ADMIN_PASSWORD: pass
 MYUSA_OAUTH_PROVIDER_KEY: foo
 MYUSA_OAUTH_PROVIDER_SECRET: bar
 MYUSA_HOME: http://my.usa.gov
+MYUSA_SCOPES: profile tasks notifications manage_business_profile
 
 ROLES: [admin, user, VIP]
 

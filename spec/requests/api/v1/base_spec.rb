@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Base API" do
+describe "Base Profile API" do
   it 'retrieves meta information about the API' do
     get "/api/index.html"
     expect(response).to be_success
@@ -19,29 +19,35 @@ describe "Base API" do
   						'email' => "citizen.kane@gmail.com"
   					}
   				}
-
+        @scope = 'manage_business_profile'
   			@myusa_user = User.create_with_omniauth(@oauth_params)
   		end
 
   		context "when an unauthorized request is made" do
   			it "should return an error" do
-  				stub_request(:get, "#{ENV['MYUSA_HOME']}/api/verify_credentials?")
-  					.with(:headers => { 'HTTP_AUTHORIZATION' => "Bearer #{@invalid_token}"})
-  					.to_return(:status => 401, :body => 'Unauthorized')
-  				get "/api/profiles", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@invalid_token}"}
-  				# expect(response).to raise_error
-  				# expect(response).to raise_errorf
-  				expect(response).to eq("Unauthorized")
+          stub_request(:get, "#{ENV['MYUSA_HOME']}/api/credentials/verify?access_token=#{@invalid_token}&scope=#{@scope}").
+            to_return(:status => 403, :body => { :message => "Unauthorized" }.to_json, :headers => {})
+          # stub_request(:post, "http://#{ENV['MYUSA_OAUTH_PROVIDER_KEY']}:#{ENV['MYUSA_OAUTH_PROVIDER_SECRET']}@#{ENV['MYUSA_HOME'].gsub('http://','')}/oauth/authorize").
+          #   with(:body => {"grant_type"=>"client_credentials"},
+          #     :headers => {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Content-Type'=>'application/x-www-form-urlencoded'}). # 'User-Agent'=>'Faraday v0.8.8'
+          #   to_return(:status => 200, :body => "", :headers => {})
+
+  				get "/api/profiles", { :scope => @scope }, {'HTTP_AUTHORIZATION' => "Bearer #{@invalid_token}"}
+
+  				expect(response.status).to eq(403)
+          expect(JSON.parse(response.body)['message']).to eq("Unauthorized")
   			end
   		end
 
   		context "when an authorized request is made" do
-  			it "should return status 200" do
-  				stub_request(:get, "#{ENV['MYUSA_HOME']}/api/verify_credentials?")
-  					.with(:headers => {'HTTP_AUTHORIZATION'=>"Bearer #{@valid_token}"})
-  					.to_return(:status => 200, :body => "4dd1", :headers => {})         		
-  				get "/api/profiles", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@valid_token}"}
-  				expect(response).to eq('4dd1')
+  			it "should return status 200" do       		
+          stub_request(:get, "#{ENV['MYUSA_HOME']}/api/credentials/verify?access_token=#{@valid_token}&scope=#{@scope}").
+            with(:headers => {'Authorization' => "Bearer #{@valid_token}"}).
+            to_return(:status => 200, :body => @oauth_params.to_json, :headers => {})
+  				  
+          get "/api/profiles", { :scope => @scope, :access_token => @valid_token, :uid => @oauth_params['uid'] }, {'HTTP_AUTHORIZATION' => "Bearer #{@valid_token}"}
+
+          expect(response.status).to eq(200)
   			end
 
   			it "should return no profile" do
@@ -55,259 +61,210 @@ describe "Base API" do
 		  					:company_name => "Kane's Canes",
 		  					:user => @myusa_user,
 		  					:state => 'CA',
-		  					:address1 => '123 Park Ave'
+		  					:address1 => '123 Park Ave',
+                :export_type => Profile::EXPORT_TYPE.sample[1]
 	  					)
 	  				@profile.user = @myusa_user
 	  				@profile.save
-	  				@myusa_user = User.find_by_uid('4dd1')
+	  				@myusa_user = User.find_by_uid(@myusa_user.uid)
 	  			end
 
-	  			it "should return the user's profile" do
-	  				@myusa_user.profile.should_not be_nil
+	  			it "should return the user's profiles" do
+            stub_request(:get, "#{ENV['MYUSA_HOME']}/api/credentials/verify?access_token=#{@valid_token}&scope=#{@scope}&uid=#{@oauth_params['uid']}").
+             with(:headers => {'Authorization' => "Bearer #{@valid_token}"}).
+             to_return(:status => 200, :body => @oauth_params.to_json, :headers => {})
+
+            get "/api/profiles", { :scope => @scope, :access_token => @valid_token, :uid => @oauth_params['uid'] }, {'HTTP_AUTHORIZATION' => "Bearer #{@valid_token}"}
+
+            expect(response.status).to eq(200)
+	  				expect(JSON.parse(response.body)['profiles']).to_not be_nil
 	  			end
 	  		end
   		end
   	end
   end
+
+
+  context "PUT api/profiles/:profile_id" do
+    before do
+      @oauth_params = {
+          'provider' => 'myusa',
+          'uid' => '5bb2',
+          'info' => {
+            'email' => "citizen.jeff@gmail.com"
+          }
+        }
+      @profile = Profile.create( :org_type => "Service Provider", :company_name => "Kane's Canes", :state => 'CA', :address1 => '123 Park Ave', :export_type => Profile::EXPORT_TYPE.sample[1])
+      @myusa_user = User.create_with_omniauth(@oauth_params)
+    end
+
+    let(:url) { "api/profiles/#{@profile.id}" }
+    let(:params) { 
+      { :profile => 
+        { :profile_id => @profile.id, :org_type => "Service Provider", :company_name => "DONUTS!!!", :state => 'CA', :address1 => '123 Park Ave' },
+        :uid => @myusa_user.uid
+      }
+    }
+    let(:expected_response) {
+      {"profile" =>
+         {"id" => Profile.last.id,
+         "company_name" => "DONUTS!!!"}
+       }
+    }
+
+    context "correct attributes" do
+      it "updates the profile and returns" do
+        put url, params
+        response.should be_success
+        JSON.parse(response.body)['profile'].should include(expected_response['profile'])
+      end
+    end
+  end
+
+  context "POST api/profiles/" do
+    before do
+      @oauth_params = {
+          'provider' => 'myusa',
+          'uid' => '4dd1',
+          'info' => {
+            'email' => "citizen.kane@gmail.com"
+          }
+        }
+      @scope = 'manage_business_profile'
+      @myusa_user = User.create_with_omniauth(@oauth_params)
+    end
+
+    let(:url) { "api/profiles" }
+    let(:params) { 
+      { :profile => 
+        { :org_type => "Service Provider", :company_name => "Kane's Canes", :state => 'CA', :address1 => '123 Park Ave', :export_type => Profile::EXPORT_TYPE.sample[1] },
+        :uid => @myusa_user.uid
+      }
+    }
+    let(:expected_response) {
+      {"profile" =>
+         {"id"=>Profile.last.id,
+         "org_type"=>"Service Provider",
+         "company_name"=>"Kane's Canes",
+         "address1"=>"123 Park Ave"}
+       }
+    }
+
+    context "correct attributes" do
+      it "responds the created record" do
+        post url, params
+        response.should be_success
+        JSON.parse(response.body)['profile'].should include(expected_response['profile'])
+      end
+    end
+
+    context "missing required attributes" do
+      required_attributes = [:export_type, :org_type]
+      required_attributes.each do |attrib|
+        it "responds with an error message for missing #{attrib}" do
+          params[:profile].delete(attrib)
+          post url, params
+          response.should_not be_success
+          JSON.parse(response.body).should include(
+            {"message"=>"The record was not saved due to errors"}
+          )
+        end
+      end
+
+    end
+  end
 end
 
-# 
 
-# require 'spec_helper'
 
-# describe "Apis" do
-#   before do
-#     create_confirmed_user_with_profile
+# describe "api", type: :integration do
+#   describe "v1" do
 
-#     @app = App.create(:name => 'App1', :redirect_uri => "http://localhost/")
-#     @app.oauth_scopes = OauthScope.all
-#     authorization = OAuth2::Model::Authorization.new
-#     authorization.scope = @app.oauth_scopes.collect{ |s| s.scope_name }.join(" ")
-#     authorization.client = @app.oauth2_client
-#     authorization.owner = @user
-#     access_token = authorization.generate_access_token
-#     client = OAuth2::Client.new(@app.oauth2_client.client_id, @app.oauth2_client.client_secret, :site => 'http://localhost/', :token_url => "/oauth/authorize")
-#     @token = OAuth2::AccessToken.new(client, access_token)
-#   end
+#     before(:each) do
+#       @task1 = FactoryGirl.create(:task, name: 'My first task', description: 'My first task description')
+#       @task2 = FactoryGirl.create(:task_with_task_items, name: 'My second task with task items', description: 'My second task description')
+#     end
 
-#   describe "GET /api/profile" do
-#     context "when the request has a valid token" do
-#       context "when the user queried exists" do
-#         it "should return JSON with a user profile with email and unique ID" do
-#           get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
-#           response.code.should == "200"
-#           parsed_json = JSON.parse(response.body)
-#           parsed_json.should_not be_nil
-#           parsed_json["email"].should == 'joe@citizen.org'
-#           parsed_json["id"].should_not be_nil
-#           parsed_json.reject{|k,v| k == "email" or k == "id" or k == "uid"}.each do |key, value|
-#             parsed_json[key].should be_nil
+#     context "GET api/v1/tasks" do
+#       let(:url) { "api/v1/tasks" }
+#       let(:expected_response) {
+#         [
+#           {"task"=>{"id"=>@task1.id,
+#             "name"=>"My first task",
+#             "description"=>"My first task description",
+#             "task_items"=>[]}
+#             },
+#             {"task"=>{"id"=>@task2.id,
+#               "name"=>"My second task with task items",
+#             "description"=>"My second task description",
+#             "task_items"=> [
+#               {"task_item"=>{"id"=>@task2.task_items[0].id, "name"=>@task2.task_items[0].name}},
+#               {"task_item"=>{"id"=>@task2.task_items[1].id, "name"=>@task2.task_items[1].name}}
+#               ]
+#             }}
+#         ]
+#       }
+
+#       it "gets a list of tasks" do
+#         get url
+#         response.should be_success
+#         JSON.parse(response.body).should == expected_response
+#       end
+#     end
+
+#     context "GET api/v1/tasks/:id" do
+#       let(:url) { "api/v1/tasks/#{@task2.id}" }
+#       let(:expected_response) {
+
+#         {"task" =>
+#           {"id"=>@task2.id, "name"=>"My second task with task items",
+#             "task_items"=>
+#             [
+#               {"task_item"=>{"id"=>@task2.task_items[0].id, "name"=>@task2.task_items[0].name}},
+#               {"task_item"=>{"id"=>@task2.task_items[1].id, "name"=>@task2.task_items[1].name}}
+#             ]
+#           }
+#         }
+#       }
+
+#       it "gets information for a specific task" do
+#         get url
+#         response.should be_success
+#         JSON.parse(response.body).should == expected_response
+#       end
+#     end
+
+#     context "POST api/v1/tasks/" do
+
+#       let(:url) { "api/v1/tasks" }
+#       let(:params) { {"name"=>"My new task", "description"=>"My new task description"} }
+#       let(:expected_response) {
+#         {"task"=>{"id"=>Task.last.id, "name"=>"My new task", "description"=>"My new task description"}}
+#       }
+
+#       context "correct attributes" do
+#         it "responds the created record" do
+#           post url, params
+#           response.should be_success
+#           JSON.parse(response.body).should include(expected_response)
+#         end
+#       end
+
+#       context "missing required attributes" do
+#         required_attributes = ["name","description"]
+#         required_attributes.each do |attrib|
+#           it "responds with an error message for missing #{attrib}" do
+#             params.delete(attrib)
+#             post url, params
+#             response.should_not be_success
+#             JSON.parse(response.body).should include(
+#               {"message"=>"The record was not saved due to errors","errors"=>{ attrib =>["can't be blank"]} }
+#             )
 #           end
 #         end
 
-#         it "should log the profile request" do
-#           get "/api/profile", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
-#           log = AppActivityLog.find(:all, :order => :created_at).last
-#           log.action.should == "show"
-#           log.controller.should == "profiles"
-#           log.app.name.should == "App1"
-#           log.user.email.should == "joe@citizen.org"
-#         end
-
-#         context "when the schema parameter is set" do
-#           it "should render the response in a Schema.org hash" do
-#             get "/api/profile", {"schema" => "true"}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
-#             response.code.should == "200"
-#             parsed_json = JSON.parse(response.body)
-#             parsed_json.should_not be_nil
-#             parsed_json["email"].should == 'joe@citizen.org'
-#           end
-#         end
-#       end
-#     end
-    
-#     context "when the request does not have a valid token" do
-#       it "should return an error message" do
-#         get "/api/profile", {"schema" => "true"}, {'HTTP_AUTHORIZATION' => "Bearer bad_token"}
-#         response.code.should == "403"
-#         parsed_json = JSON.parse(response.body)
-#         parsed_json["message"].should == "You do not have access to read that user's profile."
-#       end
-#     end
-#   end
-  
-#   describe "POST /api/notifications" do
-#     before do
-#       create_approved_beta_signup('jane@citizen.org')
-#       @other_user = User.create!(:email => 'jane@citizen.org', :password => 'Password1')
-#       @other_user.profile = Profile.new(:first_name => 'Jane', :last_name => 'Citizen', :name => 'Jane Citizen')
-#       @app2 = App.create!(:name => 'App2', :redirect_uri => "http://localhost:3000/")
-#       @app2.oauth_scopes << OauthScope.all
-#       login(@user)
-#       1.upto(14) do |index|
-#         @notification = Notification.create!({:subject => "Notification ##{index}", :received_at => Time.now - 1.hour, :body => "This is notification ##{index}.", :user_id => @user.id, :app_id => @app.id}, :as => :admin)
-#       end
-#       @other_user_notification = Notification.create!({:subject => 'Other User Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different user.', :user_id => @other_user.id, :app_id => @app.id}, :as => :admin)
-#       @other_app_notification = Notification.create!({:subject => 'Other App Notification', :received_at => Time.now - 1.hour, :body => 'This is a notification for a different app.', :user_id => @user.id, :app_id => @app2.id}, :as => :admin)
-#       @user.notifications.each{ |n| n.destroy(:force) }
-#       @user.notifications.reload
-#     end
-    
-#     context "when the user has a valid token" do    
-#       context "when the notification attributes are valid" do
-#         it "should create a new notification when the notification info is valid" do
-#           @user.notifications.size.should == 0
-#           post "/api/notifications", {:notification => {:subject => 'Project MyUSA', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
-#           response.code.should == "200"
-#           @user.notifications.reload
-#           @user.notifications.size.should == 1
-#           @user.notifications.first.subject.should == "Project MyUSA"
-#         end
-#       end
-      
-#       context "when the notification attributes are not valid" do
-#         it "should return an error message" do
-#           post "/api/notifications", {:notification => {:body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
-#           response.code.should == "400"
-#           parsed_response = JSON.parse(response.body)
-#           parsed_response["message"]["subject"].should == ["can't be blank"]
-#         end
-#       end
-#     end
-    
-#     context "when the the app does not have the proper scope" do
-#       before do
-#         @app3 = App.create(:name => 'App3', :redirect_uri => "http://localhost/")
-#         @app3.oauth_scopes = OauthScope.all
-#         authorization = OAuth2::Model::Authorization.new
-#         authorization.scope = "tasks" # this is the wrong scope for notifications
-#         authorization.client = @app3.oauth2_client
-#         authorization.owner = @user
-#         access_token = authorization.generate_access_token
-#         client = OAuth2::Client.new(@app3.oauth2_client.client_id, @app3.oauth2_client.client_secret, :site => 'http://localhost/', :token_url => "/oauth/authorize")
-#         @token3 = OAuth2::AccessToken.new(client, access_token)
-#       end
-      
-#       it "should return an error message" do
-#         post "/api/notifications", {:notification => {:body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer #{@token3.token}"}
-#         response.code.should == "403"
-#         parsed_json = JSON.parse(response.body)
-#         parsed_json["message"].should == "You do not have access to notifications for that user."
 #       end
 #     end
 
-#     context "when the user has an invalid token" do
-#       it "should return an error message" do
-#         post "/api/notifications", {:notification => {:subject => 'Project MyUSA', :body => 'This is a test.'}}, {'HTTP_AUTHORIZATION' => "Bearer fake_token"}
-#         response.code.should == "403"
-#         parsed_response = JSON.parse(response.body)
-#         parsed_response["message"].should == "You do not have access to send notifications to that user."
-#       end
-#     end
-#   end
-
-#   describe "GET /api/tasks.json" do
-#     context "when token is valid" do
-#       context "when there are notifications for a user, some of which were created by the app making the request" do
-#         before do
-#           @task1 = Task.create!({:name => 'Task #1', :user_id => @user.id, :app_id => @app.id}, :as => :admin)
-#           @task2 = Task.create!({:name => 'Task #2', :user_id => @user.id, :app_id => @app.id + 1}, :as => :admin)
-#         end
-      
-#         it "should return the tasks that were created by the calling app" do
-#           get "/api/tasks", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}" }
-#           response.code.should == "200"
-#           parsed_json = JSON.parse(response.body)
-#           parsed_json.size.should == 1
-#           parsed_json.first["name"].should == "Task #1"
-#         end
-#       end
-#     end
-    
-#     context "when the the app does not have the proper scope" do
-#       before do
-#         @app4 = App.create(:name => 'App4', :redirect_uri => "http://localhost/")
-#         @app4.oauth_scopes = OauthScope.all
-#         authorization = OAuth2::Model::Authorization.new
-#         authorization.scope = "notifications"
-#         authorization.client = @app4.oauth2_client
-#         authorization.owner = @user
-#         access_token = authorization.generate_access_token
-#         client = OAuth2::Client.new(@app4.oauth2_client.client_id, @app4.oauth2_client.client_secret, :site => 'http://localhost/', :token_url => "/oauth/authorize")
-#         @token4 = OAuth2::AccessToken.new(client, access_token)
-#       end
-      
-#       it "should return an error message" do
-#         get "/api/tasks", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token4.token}"}
-#         response.code.should == "403"
-#         parsed_json = JSON.parse(response.body)
-#         parsed_json["message"].should == "You do not have access to tasks for that user."
-#       end
-#     end
-    
-#     context "when the request does not have a valid token" do
-#       it "should return an error message" do
-#         get "/api/tasks", nil, {'HTTP_AUTHORIZATION' => "Bearer bad_token"}
-#         response.code.should == "403"
-#         parsed_json = JSON.parse(response.body)
-#         parsed_json["message"].should == "You do not have access to view tasks for that user."
-#       end
-#     end
-#   end
-  
-#   describe "POST /api/tasks" do
-#     context "when the caller has a valid token" do
-#       context "when the appropriate parameters are specified" do
-#         it "should create a new task for the user" do
-#           post "/api/tasks", {:task => { :name => 'New Task' }}, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
-#           response.code.should == "200"
-#           parsed_json = JSON.parse(response.body)
-#           parsed_json.should_not be_nil
-#           parsed_json["name"].should == "New Task"
-#           Task.find_all_by_name_and_user_id_and_app_id('New Task', @user.id, @app.id).should_not be_nil
-#         end
-#       end
-      
-#       context "when the required parameters are missing" do
-#         it "should return an error message" do
-#           post "/api/tasks", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
-#           response.code.should == "400"
-#           parsed_json = JSON.parse(response.body)
-#           parsed_json["message"].should == {"name"=>["can't be blank"]}
-#         end
-#       end
-#     end
-    
-#     context "when the request does not have a valid token" do
-#       it "should return an error message" do
-#         post "/api/tasks", nil, {'HTTP_AUTHORIZATION' => "Bearer bad_token"}
-#         response.code.should == "403"
-#         parsed_json = JSON.parse(response.body)
-#         parsed_json["message"].should == "You do not have access to create tasks for that user."
-#       end
-#     end
-#   end
-  
-#   describe "GET /api/tasks/:id.json" do
-#     before {@task = Task.create!({:name => 'New Task', :user_id => @user.id, :app_id => @app.id}, :as => :admin)}
-    
-#     context "when the token is valid" do
-#       it "should retrieve the task" do
-#         get "/api/tasks/#{@task.id}", nil, {'HTTP_AUTHORIZATION' => "Bearer #{@token.token}"}
-#         response.code.should == "200"
-#         parsed_json = JSON.parse(response.body)
-#         parsed_json.should_not be_nil
-#         parsed_json["name"].should == "New Task"
-#       end
-#     end
-    
-#     context "when the request does not have a valid token" do
-#       it "should return an error message" do
-#         get "/api/tasks/#{@task.id}", nil, {'HTTP_AUTHORIZATION' => "Bearer bad_token"}
-#         response.code.should == "403"
-#         parsed_json = JSON.parse(response.body)
-#         parsed_json["message"].should == "You do not have access to view tasks for that user."
-#       end
-#     end
 #   end
 # end

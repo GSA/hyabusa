@@ -60,7 +60,6 @@ group :development, :test do
   gem 'pry-nav'
   gem 'zeus'
   gem 'sqlite3'
-  gem 'webmock'
 end
 group :production do
   gem 'unicorn'
@@ -72,4 +71,5 @@ group :test do
   gem 'database_cleaner', '1.0.1'
   gem 'email_spec'
   gem 'simplecov', :require => false
+  gem 'webmock'
 end

@@ -7,7 +7,7 @@ describe "Profile", :type => :feature do
 
   context "when a user goes to the profile page" do
     let(:user) do
-      user = User.create!(@user_attrs)
+      user = User.find_by_email(@user_attrs[:email]) || User.create!(@user_attrs)
     end
 
     context "the first time" do
@@ -22,7 +22,7 @@ describe "Profile", :type => :feature do
 
   context "when a user goes to the new profile page" do
     let(:user) do
-      user = User.create!(@user_attrs)
+      user = User.find_by_email(@user_attrs[:email]) || User.create!(@user_attrs)
     end
 
     it "should let them create a profile" do
@@ -34,6 +34,7 @@ describe "Profile", :type => :feature do
         fill_in "City", with: "Philadelphia"
         select "Manufacturer", from: "Organization type"
         select "Pennsylvania", from: "State"
+        choose "profile_export_type_us_produced"
         click_on "Create Profile"
       end
 

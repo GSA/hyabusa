@@ -32,4 +32,7 @@ class Profile < ActiveRecord::Base
     end
   end
 
+  def self.find_by_user_uid(uid)
+    Profile.joins(:user).where("users.uid = '#{uid}'").first
+  end
 end

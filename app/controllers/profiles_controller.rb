@@ -1,6 +1,8 @@
 class ProfilesController < ApplicationController
   include ApplicationHelper
 
+  before_filter :authenticate_user!
+
   def show
     unless @profile = current_user.profile
       redirect_to new_profile_path, notice: 'Create a profile to get started!' and return
@@ -83,6 +85,7 @@ class ProfilesController < ApplicationController
         :naics_code,
         :duns_no,
         :biz_usa_store,
+        :export_type,
         :people_attributes => [
           :id,
           :first_name,
