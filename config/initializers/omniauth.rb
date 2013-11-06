@@ -4,7 +4,8 @@ Rails.application.config.middleware.use OmniAuth::Builder do
 	  		:site => ENV['MYUSA_HOME'],
 	  		:token_url => "/oauth/authorize",
 	  		:ssl => {
-	  			:verify => (ENV['RAILS_ENV'] == 'development') ? false : true
+	  			# :verify => (ENV['RAILS_ENV'] == 'development') ? false : true
+	  			:verify => false
 	  		}
 	  	},
 	  :scope => ENV['MYUSA_SCOPES']
