@@ -64,3 +64,5 @@ Capybara.configure do |config|
   config.server_port = 3002
 end
 
+WebMock.stub_request(:get, "http://staging.forms.my.usa.gov/api/forms/SF-424.json").
+  to_return(:status => 200, :body => "", :headers => {})

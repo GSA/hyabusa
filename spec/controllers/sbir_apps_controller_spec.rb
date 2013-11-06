@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe SBIRController do
+describe SbirAppsController do
 
 end

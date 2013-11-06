@@ -268,11 +268,9 @@ h1, h2, h3, h4 {
 .full-login-box {
 	background: image-url('blurred-profile.jpg') no-repeat top center;
 	background-size: 100%;
-	height: 320px;
 	padding: 100px 0;
 	.login {
 		width: 420px;
-		height: 320px;
 		margin: 0 auto;
 		box-shadow: 0 0 120px #545454;
 		padding: 20px 50px;
@@ -298,7 +296,7 @@ h1, h2, h3, h4 {
 		color: #FFFFFF;
 		width: 200px;
 		font-weight: bold;
-		margin-left: 120px;
+		margin-left: 80px;
 		border-top-right-radius: 10px;
 		border-bottom-right-radius: 10px;
 		&:hover {
