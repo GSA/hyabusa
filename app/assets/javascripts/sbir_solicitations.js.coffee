@@ -8,6 +8,10 @@ $(document).ready ->
   $('input[name=close_dt]').datepicker()
   $('input[name=posted_dt]').datepicker()
 
+  # disable all but the solnbr field
+  $('input,textarea').prop('disabled', true)
+  $('#solnbr').prop('disabled', false)
+
   # on blur:
   # make the request to our local prepopulate endpoint.
   # show a spinner
@@ -26,6 +30,7 @@ $(document).ready ->
 
   $("input[name='solnbr']").on("blur", ->
     if this.value != ''
+      $('input,textarea').prop('disabled', false)
       $.get("/sbir_solicitations/" + this.value + "/prepopulate.json", (data) ->
         prepopulate_form(data)
       )

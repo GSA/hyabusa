@@ -21,6 +21,13 @@
         
             input[type="hidden" name="data_source" value="SBIR"]
             .row
+                .col-md-6.form-group
+                    label.sr-only[for="solnbr"] Solicitation Topic Number
+                    input#solnbr.form-control[type="text" name="solnbr" required placeholder="Solicitation Topic Number"]
+                .col-md-6.form-group
+                    label.sr-only[for="listing_url"] Listing URL
+                    input#listing_url.form-control[type="url" name="listing_url" required hint="Outbound link to the agency's page for this project." placeholder="Listing URL"]
+            .row
                 .col-md-12.form-group
                     label.sr-only[for="title"] Solicitation Title
                     input#title.form-control[type="text" name="title" placeholder="Solicitation Title" autofocus required]
@@ -31,13 +38,6 @@
                 .col-md-5.form-group
                     label.sr-only[for="participating_organizations"] Participating Organizations
                     input#participating_organizations.form-control[type="text" name="participating_organizations" hint="A department or other organization within the agency, if applicable" placeholder="Participating Organizations"]
-            .row
-                .col-md-6.form-group
-                    label.sr-only[for="solnbr"] Solicitation Topic Number
-                    input#solnbr.form-control[type="text" name="solnbr" required placeholder="Solicitation Topic Number"]
-                .col-md-6.form-group
-                    label.sr-only[for="listing_url"] Listing URL
-                    input#listing_url.form-control[type="url" name="listing_url" required hint="Outbound link to the agency's page for this project." placeholder="Listing URL"]
             .row
                 .col-md-4.form-group
                     label[for="open_dt"] Open Date
