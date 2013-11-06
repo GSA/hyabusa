@@ -1,16 +1,16 @@
 .container
-  .row.span10
+  .row.col-md-10
     .page-header
       h3
         | My BusinessUSA Profile&nbsp;&nbsp;
         small
           = link_to "(edit)", edit_profile_path
 
-  .row.span10
-    table.table.table-striped.span10
+  .row.col-md-10
+    table.table.table-striped.col-md-10
       tbody
         tr
-          th.span3 Company name
+          th.col-md-3 Company name
           td
             = @profile.company_name
         tr
@@ -86,21 +86,23 @@
           td
             = @profile.dunn_bradstreet
 
-  .row.span10
+  .row.col-md-10
     .page-header
         h4
           | Business Contacts&nbsp;&nbsp;
           small
             = link_to "(edit)", edit_profile_path(anchor: 'people')
 
-  .row.span10
-    table.table.table-striped.span8
+  .row.col-md-10
+    table.table.table-striped.col-md-8
       thead
         tr
           th First Name
           th Last Name
           th Title
           th Email
+          th Phone (Work)
+          th Phone (Mobile)
       tbody
         - for person in @profile.people do
           tr
@@ -112,4 +114,8 @@
               = person.title
             td
               = person.email
+            td
+              = person.phone_work
+            td
+              = person.phone_mobile
       

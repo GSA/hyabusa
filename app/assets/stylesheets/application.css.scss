@@ -10,8 +10,12 @@
  *
  *= require_self
  *= require_tree .
- *= require bootstrap_and_overrides
+ *= require twitter/bootstrap
+ *= require formtastic-bootstrap
+ *= require bootstrap-wysihtml5/b3
 */
+
+@import 'twitter/bootstrap';
 
 .content {
   background-color: #eee;
@@ -43,7 +47,7 @@ body {
 			font-size: 2.4em;
 			font-family: 'Bitter', Times, serif;
 			color: #4D4D4D;
-			top: 17px;
+			top: 7px;
 		}
 	}
 	.avatar-link {
@@ -59,7 +63,7 @@ body {
 		height: 48px;
 
 	}
-	.brand {
+	.navbar-brand {
 		background: image-url('my_busa.png');
 		width: 244px;
 		height: 33px;

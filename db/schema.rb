@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130926153731) do
+ActiveRecord::Schema.define(version: 20131024211602) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,7 +69,6 @@ ActiveRecord::Schema.define(version: 20130926153731) do
     t.boolean  "currently_exporting"
     t.integer  "naics_sector"
     t.integer  "naics_code"
-    t.integer  "duns_no"
     t.integer  "user_id"
     t.text     "biz_usa_store"
     t.string   "phone_number"

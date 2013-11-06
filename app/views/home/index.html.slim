@@ -2,7 +2,7 @@
 	= render 'profiles/detail'
 - elsif user_signed_in? and !@profile.persisted? # No profile, display marketing text
 	.row
-		.span12
+		.col-md-12
 			.full-login-box
 				.login
 					h2 
@@ -21,7 +21,7 @@
 
 - else
 	.row
-		.span12
+		.col-md-12
 			.full-login-box
 				.login
 					h2 
@@ -40,8 +40,3 @@
 							= image_tag('shield.png')
 							span
 								| Log in with MyUSA
-
-
-= debug session['user_id']
-= debug session['uid']
-= debug session['token']

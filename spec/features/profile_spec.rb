@@ -32,6 +32,7 @@ describe "Profile", :type => :feature do
         fill_in "Company name", with: "ACME Widgets"
         fill_in "Address1", with: "123 Courthouse Rd."
         fill_in "City", with: "Philadelphia"
+        choose "profile_export_type_us_produced"
         select "Manufacturer", from: "Organization type"
         select "Pennsylvania", from: "State"
         choose "profile_export_type_us_produced"
@@ -39,7 +40,8 @@ describe "Profile", :type => :feature do
       end
 
       current_path.should == '/profile'
-      page.should have_content "Profile was successfully created"
+      page.status_code.should == 200
+      page.should have_selector ".alert", text: "Profile was successfully created"
 
       u = User.where(email: user.email).first
 

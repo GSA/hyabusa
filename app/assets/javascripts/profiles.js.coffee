@@ -3,6 +3,9 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
+  if not gon.naics_codes
+    gon.naics_codes = []
+
   $('.naics-typeahead').typeahead({
     name: 'naics', 
     local: gon.naics_codes, 

@@ -2,7 +2,9 @@
   = f.input :id, as: :hidden
   = f.input :first_name
   = f.input :last_name
-  = f.input :email
   = f.input :title
+  = f.input :email
+  = f.input :phone_work
+  = f.input :phone_mobile
   = f.input :_destroy, as: :hidden
   = link_to_remove_association "remove person", f

@@ -23,5 +23,7 @@ MYUSA_SCOPES: profile tasks notifications manage_business_profile
 
 ROLES: [admin, user, VIP]
 
+FBOPEN_URI: http://ec2-54-200-57-170.us-west-2.compute.amazonaws.com
+FBOPEN_API_PORT: 3000
 
 MODUS_OPERANDI_HOME: http://mo.tynsax.com
