@@ -9,8 +9,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'anjlab-bootstrap-rails', :require => 'bootstrap-rails',
                               :github => 'anjlab/bootstrap-rails'
-gem 'bootstrap-wysihtml5-rails'
 gem 'bootstrap-sass'
+gem 'bootstrap-datepicker-rails'
 
 gem 'devise'
 gem 'responders',          github: 'plataformatec/responders'

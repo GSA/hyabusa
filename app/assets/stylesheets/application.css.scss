@@ -12,10 +12,9 @@
  *= require_tree .
  *= require twitter/bootstrap
  *= require formtastic-bootstrap
- *= require bootstrap-wysihtml5/b3
+ *= require bootstrap-datepicker
 */
 
-@import 'twitter/bootstrap';
 
 .content {
   background-color: #eee;
