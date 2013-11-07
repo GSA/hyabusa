@@ -1,6 +1,8 @@
 class SbirSolicitationsController < ApplicationController
+  require 'cgi'
   require 'httparty'
   include SbirSolicitationsHelper
+  include ActionView::Helpers::SanitizeHelper
 
   layout "sbir_solicitations"
 
@@ -44,6 +46,7 @@ class SbirSolicitationsController < ApplicationController
     fbopen = FBOpenAPI.new
 
     @fbo_listing = fbopen.get(params[:sbir_solicitation_id])
+    @fbo_listing.parsed_response['response']['docs'][0]['summary'] = strip_tags(CGI.unescapeHTML(@fbo_listing.parsed_response['response']['docs'][0]['summary']))
     render json: @fbo_listing.parsed_response
   end
 
