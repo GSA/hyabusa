@@ -23,6 +23,7 @@ class SessionsController < ApplicationController
     session[:user_id] = user.id
     session[:token] = auth.credentials.token
     session[:uid] = user.uid
+    cookies[:redirect_to] = cookies[:redirect_to]+"?uid=#{user.uid}&access_token=#{auth.credentials.token}"
     # redirect user to application with URL parameters ?uid=1234&token=0000
     user.add_role :super_admin if User.count == 1 # make the first user an admin
     if user.email.blank?
