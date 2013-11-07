@@ -28,6 +28,14 @@
                   .col-md-6.form-group
                       label[for="listing_url"] Listing URL
                       input#listing_url.form-control[type="url" name="listing_url" required title="Outbound link to the agency's RFP."]
+              .row#fbopen-alert
+                  .alert.alert.alert-success.fade.in
+                      | We found your solicitation number on FBOpen and prepopulated the form for you. 
+                      | Any changes you make will update the listing on FBOpen. 
+                      | If this is not your solicitation, or you’d like to start fresh, just click&nbsp;
+                      a[href="#"] reset
+                      | .
+                      a.close[data-dismiss="alert" href="#" aria-hidden="true"] &times;
               .row
                   .col-md-12.form-group
                       label[for="title"] Solicitation Title
@@ -42,13 +50,13 @@
               .row
                   .col-md-4.form-group
                       label[for="open_dt"] Open Date
-                      input#open_dt.form-control[type="text" name="open_dt"]
+                      input#open_dt.form-control[type="text" name="open_dt" title="Application period opens on this date"]
                   .col-md-4.form-group
                       label[for="close_dt"] Close Date
-                      input#close_dt.form-control[type="text" name="close_dt" required]
+                      input#close_dt.form-control[type="text" name="close_dt" required title="Applications are due by this date"]
                   .col-md-4.form-group
                       label[for="posted_dt"] Posted Date
-                      input#posted_dt.form-control[type="text" name="posted_dt"]
+                      input#posted_dt.form-control[type="text" name="posted_dt" title="Date this solicitation was/will be made public"]
               .row
                   .form-group.col-md-12
                       label[for="summary"]

@@ -4,19 +4,22 @@
 
 $(document).ready ->
   # initialize special field widgets
-  $('#open_dt').datepicker()
+  $('#open_dt').datepicker("setDate", new Date())
   $('#close_dt').datepicker()
-  $('#posted_dt').datepicker()
+  $('#posted_dt').datepicker("setDate", new Date())
 
   $('#listing_url').tooltip()
   $('#participating_organizations').tooltip()
   $('#summary').tooltip()
 
-
-
   # disable all but the solnbr field
   $('input,textarea').prop('disabled', true)
   $('#solnbr').prop('disabled', false)
+
+  $('#fbopen-alert').hide()
+  $('#fbopen-alert.reset').bind("click", ->
+    $('.new-solicitation').reset()
+  )
 
   # on blur:
   # make the request to our local prepopulate endpoint.
@@ -28,6 +31,10 @@ $(document).ready ->
     else
       $("#" + key).datepicker('update', new Date(Date.parse(data[key])))
 
+  $('#fbopen-alert').on("prepopulate", ->
+    $('#fbopen-alert').show()
+  )
+
   prepopulate_form = (response) ->
     data = response.response['docs'][0]
 
@@ -38,6 +45,8 @@ $(document).ready ->
     if this.value != ''
       $('input,textarea').prop('disabled', false)
       $.get("/sbir_solicitations/" + this.value + "/prepopulate.json", (data) ->
+        $('#fbopen-alert').trigger("prepopulate")
         prepopulate_form(data)
+        $('#listing_url').focus()
       )
   )

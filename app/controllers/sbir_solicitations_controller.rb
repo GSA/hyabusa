@@ -22,7 +22,7 @@ class SbirSolicitationsController < ApplicationController
   end
 
   def create
-    if not params[:solnbr]
+    #if not params[:solnbr]
       fbopen = FBOpenAPI.new
       response = fbopen.post(params)
 
@@ -32,9 +32,9 @@ class SbirSolicitationsController < ApplicationController
         flash[:error] = response.parsed_response['message']
         render 'new'
       end
-    else
-      self.prepopulate(params[:solnbr])
-    end
+    #else
+    #  prepopulate(params[:solnbr])
+    #end
   end
 
   # thank you
