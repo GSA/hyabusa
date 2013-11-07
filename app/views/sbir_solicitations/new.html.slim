@@ -14,45 +14,49 @@
 
         .col-md-1
 
-    .container
-        h4 Solicitation Information:
+    .row
+        .container
+          h4 Solicitation Information:
 
-        = form_tag sbir_solicitations_path, class: 'form-inline new-solicitation', role: 'form' do
-        
-            input[type="hidden" name="data_source" value="SBIR"]
-            .row
-                .col-md-6.form-group
-                    label.sr-only[for="solnbr"] Solicitation Topic Number
-                    input#solnbr.form-control[type="text" name="solnbr" required placeholder="Solicitation Topic Number"]
-                .col-md-6.form-group
-                    label.sr-only[for="listing_url"] Listing URL
-                    input#listing_url.form-control[type="url" name="listing_url" required hint="Outbound link to the agency's page for this project." placeholder="Listing URL"]
-            .row
-                .col-md-12.form-group
-                    label.sr-only[for="title"] Solicitation Title
-                    input#title.form-control[type="text" name="title" placeholder="Solicitation Title" autofocus required]
-            .row
-                .col-md-7.form-group
-                    label.sr-only[for="agency"] Agency
-                    input#agency.form-control[type="text" name="agency" hint="Title of solicitation" placeholder="Agency"]
-                .col-md-5.form-group
-                    label.sr-only[for="participating_organizations"] Participating Organizations
-                    input#participating_organizations.form-control[type="text" name="participating_organizations" hint="A department or other organization within the agency, if applicable" placeholder="Participating Organizations"]
-            .row
-                .col-md-4.form-group
-                    label[for="open_dt"] Open Date
-                    input#open_dt.form-control[type="text" name="open_dt"]
-                .col-md-4.form-group
-                    label[for="close_dt"] Close Date
-                    input#close_dt.form-control[type="text" name="close_dt" required]
-                .col-md-4.form-group
-                    label[for="posted_dt"] Posted Date
-                    input#posted_dt.form-control[type="text" name="posted_dt"]
-            .row
-                .form-group.col-md-12
-                    label[for="summary"]
-                        h4 Funding Objective:
-                    textarea#summary.form-control[name="summary" hint="Executive summary/synopsis of the project" rows="7"] 
-            = submit_tag "Submit", class: "btn btn-primary"
-    </div>
-</div>
+          = form_tag sbir_solicitations_path, class: 'new-solicitation', role: 'form' do
+          
+              input[type="hidden" name="data_source" value="SBIR"]
+              .row
+                  .col-md-6.form-group
+                      label[for="solnbr"] Solicitation Topic Number
+                      input#solnbr.form-control[type="text" name="solnbr" required]
+                  .col-md-6.form-group
+                      label[for="listing_url"] Listing URL
+                      input#listing_url.form-control[type="url" name="listing_url" required title="Outbound link to the agency's RFP."]
+              .row
+                  .col-md-12.form-group
+                      label[for="title"] Solicitation Title
+                      input#title.form-control[type="text" name="title" autofocus required]
+              .row
+                  .col-md-7.form-group
+                      label[for="agency"] Agency
+                      input#agency.form-control[type="text" name="agency"]
+                  .col-md-5.form-group
+                      label[for="participating_organizations"] Participating Organizations
+                      input#participating_organizations.form-control[type="text" name="participating_organizations" title="A department or other organization within the agency, if applicable"]
+              .row
+                  .col-md-4.form-group
+                      label[for="open_dt"] Open Date
+                      input#open_dt.form-control[type="text" name="open_dt"]
+                  .col-md-4.form-group
+                      label[for="close_dt"] Close Date
+                      input#close_dt.form-control[type="text" name="close_dt" required]
+                  .col-md-4.form-group
+                      label[for="posted_dt"] Posted Date
+                      input#posted_dt.form-control[type="text" name="posted_dt"]
+              .row
+                  .form-group.col-md-12
+                      label[for="summary"]
+                          h4 Funding Objective:
+                      textarea#summary.form-control[name="summary" title="Executive summary/synopsis of the project" rows="7"] 
+              .row
+                  .form-group.col-md-1
+                      = submit_tag "Submit", class: "btn btn-lg btn-primary"
+                  .col-md-10
+                  .form-group.col-md-1
+                      = button_tag "Reset", type: :reset, class: "btn btn-xs btn-warning"

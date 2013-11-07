@@ -4,9 +4,15 @@
 
 $(document).ready ->
   # initialize special field widgets
-  $('input[name=open_dt]').datepicker()
-  $('input[name=close_dt]').datepicker()
-  $('input[name=posted_dt]').datepicker()
+  $('#open_dt').datepicker()
+  $('#close_dt').datepicker()
+  $('#posted_dt').datepicker()
+
+  $('#listing_url').tooltip()
+  $('#participating_organizations').tooltip()
+  $('#summary').tooltip()
+
+
 
   # disable all but the solnbr field
   $('input,textarea').prop('disabled', true)
