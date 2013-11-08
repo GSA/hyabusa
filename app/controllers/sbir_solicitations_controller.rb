@@ -22,19 +22,15 @@ class SbirSolicitationsController < ApplicationController
   end
 
   def create
-    #if not params[:solnbr]
-      fbopen = FBOpenAPI.new
-      response = fbopen.post(params)
+    fbopen = FBOpenAPI.new
+    response = fbopen.post(params)
 
-      if response.parsed_response['status'] == "success"
-        redirect_to sbir_solicitation_path(response.parsed_response['data']['id'].split(":").last)
-      else
-        flash[:error] = response.parsed_response['message']
-        render 'new'
-      end
-    #else
-    #  prepopulate(params[:solnbr])
-    #end
+    if response.parsed_response['status'] == "success"
+      redirect_to sbir_solicitation_path(response.parsed_response['data']['id'].split(":").last)
+    else
+      flash[:error] = response.parsed_response['message']
+      render 'new'
+    end
   end
 
   # thank you
@@ -46,8 +42,13 @@ class SbirSolicitationsController < ApplicationController
     fbopen = FBOpenAPI.new
 
     @fbo_listing = fbopen.get(params[:sbir_solicitation_id])
-    @fbo_listing.parsed_response['response']['docs'][0]['summary'] = strip_tags(CGI.unescapeHTML(@fbo_listing.parsed_response['response']['docs'][0]['summary']))
-    render json: @fbo_listing.parsed_response
+    docs = @fbo_listing.parsed_response['response']['docs']
+    if docs.count() > 0
+      @fbo_listing.parsed_response['response']['docs'][0]['summary'] = strip_tags(CGI.unescapeHTML(@fbo_listing.parsed_response['response']['docs'][0]['summary']))
+      render json: @fbo_listing.parsed_response
+    else
+      raise ActionController::RoutingError.new('Not Found')
+    end
   end
 
 end

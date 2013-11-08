@@ -12,14 +12,25 @@ $(document).ready ->
   $('#participating_organizations').tooltip()
   $('#summary').tooltip()
 
+  $('#fbopen-alert').alert()
+  $('#fbopen-alert').hide()
+
+  $('#fbopen-info').alert()
+  $('#fbopen-info').hide()
+
   # disable all but the solnbr field
   $('input,textarea').prop('disabled', true)
   $('#solnbr').prop('disabled', false)
 
-  $('#fbopen-alert').hide()
-  $('#fbopen-alert.reset').bind("click", ->
-    $('.new-solicitation').reset()
+  $('#fbopen-alert,#fbopen-info').on("close.bs.alert", ->
+    $('.new-solicitation')[0].reset()
+    $('#solnbr').focus()
   )
+
+  $('#fbopen-alert').on("prepopulate", ->
+    $(this).show()
+  )
+
 
   # on blur:
   # make the request to our local prepopulate endpoint.
@@ -31,22 +42,21 @@ $(document).ready ->
     else
       $("#" + key).datepicker('update', new Date(Date.parse(data[key])))
 
-  $('#fbopen-alert').on("prepopulate", ->
-    $('#fbopen-alert').show()
-  )
-
   prepopulate_form = (response) ->
     data = response.response['docs'][0]
 
     input_keys = ['listing_url', 'title', 'close_dt', 'agency', 'participating_organizations', 'summary', 'description']
     set_input(key, data) for key in input_keys
 
-  $("input[name='solnbr']").on("blur", ->
+  $("#solnbr").on("blur", ->
     if this.value != ''
       $('input,textarea').prop('disabled', false)
       $.get("/sbir_solicitations/" + this.value + "/prepopulate.json", (data) ->
-        $('#fbopen-alert').trigger("prepopulate")
         prepopulate_form(data)
+        $('#fbopen-alert').trigger("prepopulate")
+        $('#listing_url').focus()
+      ).fail( ->
+        $('#fbopen-info').show()
         $('#listing_url').focus()
       )
   )

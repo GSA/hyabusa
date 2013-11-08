@@ -18,7 +18,7 @@
         .container
           h4 Solicitation Information:
 
-          = form_tag sbir_solicitations_path, class: 'new-solicitation', role: 'form' do
+          = form_tag sbir_solicitations_path, class: 'new-solicitation', role: 'form', id: 'new-solicitation' do
           
               input[type="hidden" name="data_source" value="SBIR"]
               .row
@@ -28,14 +28,15 @@
                   .col-md-6.form-group
                       label[for="listing_url"] Listing URL
                       input#listing_url.form-control[type="url" name="listing_url" required title="Outbound link to the agency's RFP."]
-              .row#fbopen-alert
-                  .alert.alert.alert-success.fade.in
-                      | We found your solicitation number on FBOpen and prepopulated the form for you. 
-                      | Any changes you make will update the listing on FBOpen. 
-                      | If this is not your solicitation, or you’d like to start fresh, just click&nbsp;
-                      a[href="#"] reset
-                      | .
-                      a.close[data-dismiss="alert" href="#" aria-hidden="true"] &times;
+              #fbopen-alert.alert.alert-success.fade.in
+                  | Congrats, we found your solicitation number on FBOpen and prepopulated the form for you. Any changes you make will update the listing on FBOpen. If this is not your solicitation, or you’d like to start fresh, just click&nbsp;
+                  a[href="#" data-dismiss="alert" aria-hidden="true"] reset
+                  | .
+                  a.close[href="#" aria-hidden="true"] &times;
+              #fbopen-info.alert.alert-info.fade.in
+                  | Hi! We searched FBOpen for an existing record with this solicitation number, but we didn't find anything.
+                  | If this seems to be in error, please double-check your solicitation number, or simply continue filling out the form.
+                  a.close[href="#" aria-hidden="true"] &times;
               .row
                   .col-md-12.form-group
                       label[for="title"] Solicitation Title
