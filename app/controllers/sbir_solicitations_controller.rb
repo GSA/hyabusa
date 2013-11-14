@@ -44,7 +44,10 @@ class SbirSolicitationsController < ApplicationController
     @fbo_listing = fbopen.get(params[:sbir_solicitation_id])
     docs = @fbo_listing.parsed_response['response']['docs']
     if docs.count() > 0
-      @fbo_listing.parsed_response['response']['docs'][0]['summary'] = strip_tags(CGI.unescapeHTML(@fbo_listing.parsed_response['response']['docs'][0]['summary']))
+      @fbo_listing.parsed_response['response']['docs'][0]['summary'] = strip_tags(CGI.unescapeHTML(
+        @fbo_listing.parsed_response['response']['docs'][0]['summary'] ||
+        @fbo_listing.parsed_response['response']['docs'][0]['description']
+      ))
       render json: @fbo_listing.parsed_response
     else
       raise ActionController::RoutingError.new('Not Found')
