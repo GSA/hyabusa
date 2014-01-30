@@ -17,7 +17,7 @@ class SbirSolicitationsController < ApplicationController
     end
 
     def get(solicitation_no)
-      self.class.get('/v0/opps', query: {q: ['solnbr', solicitation_no].join(':'), api_key: ENV['FBOPEN_API_KEY']})
+      self.class.get('/v0/opps', query: {q: ['solnbr', solicitation_no].join(':'), show_closed: 'true', api_key: ENV['FBOPEN_API_KEY']})
     end
   end
 

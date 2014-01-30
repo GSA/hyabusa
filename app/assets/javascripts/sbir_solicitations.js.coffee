@@ -43,7 +43,7 @@ $(document).ready ->
       $("#" + key).datepicker('update', new Date(Date.parse(data[key])))
 
   prepopulate_form = (response) ->
-    data = response.response['docs'][0]
+    data = response['docs'][0]
 
     input_keys = ['listing_url', 'title', 'close_dt', 'agency', 'participating_organizations', 'summary', 'description']
     set_input(key, data) for key in input_keys
